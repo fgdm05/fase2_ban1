@@ -1,0 +1,6 @@
+{
+	"server" : "localhost",
+	"database" : "fase2_ban1",
+	"login" : "postgres",
+	"senha" : "postgres"
+}
