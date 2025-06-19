@@ -37,15 +37,15 @@ public class Cliente {
 			this.tipoCliente = tipoCliente;
 	}
 	public void setCnpj(String cnpj) {
-		if(cpf == null)
+		if(tipoCliente == 2)
 			this.cnpj = cnpj;
 	}
 	public void setRazaoSocial(String razaoSocial) {
-		if(cpf == null)
+		if(tipoCliente == 2)
 			this.razaoSocial = razaoSocial;
 	}
 	public void setCpf(String cpf) {
-		if(cnpj == null && razaoSocial == null)
+		if(tipoCliente == 1)
 			this.cpf = cpf;
 	}
 	
