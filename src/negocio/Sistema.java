@@ -24,4 +24,15 @@ public class Sistema {
 	public void criarCliente() {
 		clientes.add(vc.criar());
 	}
+	public void deletarCliente() {
+		verClientes();
+		int escolha = vc.deletar(clientes.size());
+		for(int i = 0; i < clientes.size(); i++) {
+			if(escolha == clientes.get(i).getId()) {
+				Cliente c = clientes.remove(i);
+				System.out.println("Cliente " + c + " removido");
+				break;
+			}
+		}
+	}
 }

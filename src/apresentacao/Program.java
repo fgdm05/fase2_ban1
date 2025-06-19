@@ -15,14 +15,18 @@ public class Program {
 			try {
 			System.out.println("1 - Criar um cliente");
 			System.out.println("2 - Visualizar todos os clientes");
+			System.out.println("3 - Deletar cliente");
 			System.out.println("0 - Sair");
 			int escolha = -1000;
-			while(escolha < 0 || escolha > 2) {escolha = sc.nextInt(); }
+			while(escolha < 0 || escolha > 3) {escolha = sc.nextInt(); }
 			if(escolha == 1) {
 				sys.criarCliente();
 			} else if(escolha == 2) {
 				sys.verClientes();
-			} else if(escolha == 0) {
+			} else if(escolha == 3) {
+				sys.deletarCliente();
+			}
+			else if(escolha == 0) {
 				break;
 			} else {
 				throw new RuntimeException("Não existe a opção " + escolha);

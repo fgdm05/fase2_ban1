@@ -12,7 +12,7 @@ public class Cliente {
 	private String cnpj, razaoSocial;
 	
 	public Cliente() {
-		tipoCliente = -1;
+		id = tipoCliente = -1;
 		telefones = new ArrayList<String>();
 	}
 	
@@ -88,11 +88,11 @@ public class Cliente {
 	@Override
 	public String toString() {
 		if(tipoCliente == 1) {
-			return String.format("[Cliente %s, %s, %s, %s]", nome, email, telefones.get(0), cpf);
+			return String.format("[Cliente (%d) %s, %s, %s, %s]", id, nome, email, telefones.get(0), cpf);
 		} else if(tipoCliente == 2) {
-			return String.format("[Cliente %s, %s, %s, %s, %s]", nome, email, telefones.get(0), cnpj, razaoSocial);
+			return String.format("[Cliente (%d) %s, %s, %s, %s, %s]", id, nome, email, telefones.get(0), cnpj, razaoSocial);
 		} else {
-			return String.format("[Cliente %s, %s, %s]", nome, email, telefones.get(0));
+			return String.format("[Cliente (%d) %s, %s, %s]", id, nome, email, telefones.get(0));
 		}
 	}
 }

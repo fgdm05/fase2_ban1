@@ -49,5 +49,12 @@ public class ViewCliente implements View<Cliente> {
 		System.out.println(String.format("Cliente %s criado!", c));
 		return c;
 	}
+
+	public int deletar(int size) {
+		System.out.println("Escolha o id para deletar o cliente");
+		int escolha = -1;
+		while(escolha < 0 || escolha > size) {escolha = sc.nextInt(); }
+		return escolha;
+	}
 	
 }
