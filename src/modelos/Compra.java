@@ -6,6 +6,7 @@ import java.util.List;
 public class Compra {
 	private int id;
 	private Impressao imp;
+	private Cliente cli;
 	private int quantidade;
 	private Date datetime;
 	
@@ -16,10 +17,11 @@ public class Compra {
 	
 	
 
-	public Compra(int id, Impressao imp, int quantidade, Date datetime) {
+	public Compra(int id, Impressao imp, Cliente cli, int quantidade, Date datetime) {
 		super();
 		this.id = id;
 		this.imp = imp;
+		this.cli = cli;
 		this.quantidade = quantidade;
 		this.datetime = datetime;
 	}
@@ -64,6 +66,15 @@ public class Compra {
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
-	
+
+
+
+	public Cliente getCli() {
+		return cli;
+	}
+
+	public void setCli(Cliente cli) {
+		this.cli = cli;
+	}
 	
 }
