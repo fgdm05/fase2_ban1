@@ -10,6 +10,7 @@ public class Cliente {
 	private List<String> telefones;
 	private String cpf;
 	private String cnpj, razaoSocial;
+	private List<Compra> compras;
 	
 	public Cliente() {
 		id = tipoCliente = -1;
@@ -85,6 +86,26 @@ public class Cliente {
 		telefones.remove(telefone);
 	}
 	
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+	
+	public void addCompras(Compra compra) {
+		compras.add(compra);
+	}
+	
+	public void rmvCompras(Compra compra) {
+		compras.remove(compra);
+	}
+
 	@Override
 	public String toString() {
 		if(tipoCliente == 1) {
