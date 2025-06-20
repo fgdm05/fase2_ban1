@@ -14,6 +14,7 @@ public class ViewCliente implements View<Cliente> {
 				System.out.println("Formato CPF: 12345678900");
 				System.out.println("CPF: ");
 				c.setCpf(sc.next("[0-9]{11}"));
+				sc.nextLine();
 			break;
 			case 2:
 				System.out.println("Formato CNPJ: 12345678900000");
@@ -34,15 +35,15 @@ public class ViewCliente implements View<Cliente> {
 		System.out.println("1 - Pessoa Física");
 		System.out.println("2 - Pessoa Jurídica");
 		int escolha = -1;
-		while(!(escolha == 1 || escolha == 2)) {escolha = sc.nextInt(); }
+		while(!(escolha == 1 || escolha == 2)) {escolha = Integer.parseInt(sc.nextLine()); }
 		c.setTipoCliente(escolha);
 		
 		System.out.println("Nome: ");
-		c.setNome(sc.next());
+		c.setNome(sc.nextLine());
 		System.out.println("E-mail: ");
-		c.setEmail(sc.next());
+		c.setEmail(sc.nextLine());
 		System.out.println("Telefone: ");
-		c.addTelefone(sc.next());
+		c.addTelefone(sc.nextLine());
 		
 		perguntaHeranca(c);
 		
@@ -53,7 +54,7 @@ public class ViewCliente implements View<Cliente> {
 	public int deletar(int size) {
 		System.out.println("Escolha o id para deletar o cliente");
 		int escolha = -1;
-		while(escolha < 0 || escolha > size) {escolha = sc.nextInt(); }
+		while(escolha < 0 || escolha > size) {escolha = Integer.parseInt(sc.nextLine()); }
 		return escolha;
 	}
 	

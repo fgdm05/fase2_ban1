@@ -16,27 +16,42 @@ public class Program {
 		
 		try {
 			// Connection con = new ConnectionFactory().createConnection();
-			while(true) {
+			int escolha = -1000;
+			while(escolha != 0) {
 				
 				System.out.println("1 - Criar um cliente");
 				System.out.println("2 - Visualizar todos os clientes");
 				System.out.println("3 - Deletar cliente");
+				System.out.println("4 - Criar um produto");
+				System.out.println("5 - Visualizar catálogo");
+				System.out.println("6 - Excluir produto");
 				System.out.println("0 - Sair");
-				int escolha = -1000;
-				while(escolha < 0 || escolha > 3) {escolha = sc.nextInt(); }
-				if(escolha == 1) {
-					sys.criarCliente();
-				} else if(escolha == 2) {
-					sys.verClientes();
-				} else if(escolha == 3) {
-					sys.deletarCliente();
-				}
-				else if(escolha == 0) {
-					break;
-				} else {
-					throw new RuntimeException("Não existe a opção " + escolha);
-				}
+				while(escolha < 0 || escolha > 6) {escolha = Integer.parseInt(sc.nextLine()); }
 				
+				switch(escolha) {
+				case 0:
+					break;
+				case 1:
+					sys.criarCliente();
+					break;
+				case 2:
+					sys.verClientes();
+					break;
+				case 3:
+					sys.deletarCliente();
+					break;
+				case 4:
+					sys.criarProduto();
+					break;
+				case 5:
+					sys.verProdutos();
+					break;
+				case 6:
+					sys.deletarProduto();
+					break;
+				default:
+						throw new RuntimeException("Não existe a opção " + escolha);
+				}
 			}
 		} catch(Throwable t) {
 			System.err.println(t.getMessage());
