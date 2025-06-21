@@ -12,17 +12,16 @@ public class ViewProduto implements View<Produto> {
 		System.out.println("Nome: ");
 		p.setNome(sc.nextLine());
 		System.out.println("Preço: ");
-		p.setPreco(Double.parseDouble(sc.nextLine()));
+		p.setPreco(Double.parseDouble(sc.next()));
 		
 		System.out.println(String.format("Produto %s criado!", p));
 		
 		return p;
 	}
 	
-	public int deletar(int size) {
+	public int deletar() {
 		System.out.println("Escolha o id do produto que deseja deletar: ");
-		int escolha = -1;
-		while(escolha < 0 || escolha > size) {escolha = sc.nextInt(); }
+		int escolha = sc.nextInt();
 		return escolha;
 	}
 }

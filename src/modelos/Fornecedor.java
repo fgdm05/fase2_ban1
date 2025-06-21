@@ -2,12 +2,14 @@ package modelos;
 
 public class Fornecedor {
 	private int id;
-	private String cnpj, razaoSocial;
+	private String nome, cnpj, razaoSocial;
 	public Fornecedor() {
 	}
 	
-	public Fornecedor(int id, String cnpj, String razaoSocial) {
+	public Fornecedor(int id, String nome, String cnpj, String razaoSocial) {
+		super();
 		this.id = id;
+		this.nome = nome;
 		this.cnpj = cnpj;
 		this.razaoSocial = razaoSocial;
 	}
@@ -30,6 +32,16 @@ public class Fornecedor {
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 	
 	
 }

@@ -14,14 +14,13 @@ public class ViewCliente implements View<Cliente> {
 				System.out.println("Formato CPF: 12345678900");
 				System.out.println("CPF: ");
 				c.setCpf(sc.next("[0-9]{11}"));
-				sc.nextLine();
 			break;
 			case 2:
 				System.out.println("Formato CNPJ: 12345678900000");
 				System.out.println("CNPJ: ");
 				c.setCnpj(sc.next("[0-9]{14}"));
 				System.out.println("Razao social: ");
-				c.setRazaoSocial(sc.next());
+				c.setRazaoSocial(sc.nextLine());
 			break;
 			default:
 			break;
@@ -41,20 +40,26 @@ public class ViewCliente implements View<Cliente> {
 		System.out.println("Nome: ");
 		c.setNome(sc.nextLine());
 		System.out.println("E-mail: ");
-		c.setEmail(sc.nextLine());
+		c.setEmail(sc.next());
 		System.out.println("Telefone: ");
-		c.addTelefone(sc.nextLine());
-		
+		c.addTelefone(sc.next());
+//		System.out.println("Telefones (digite -1 p/sair): ");
+//		String tel = "0";
+//		while (!tel.equals("-1")) {
+//			tel = sc.next();
+//			if(!tel.equals("-1")) {
+//				c.addTelefone(tel);
+//			}
+//		}
 		perguntaHeranca(c);
 		
 		System.out.println(String.format("Cliente %s criado!", c));
 		return c;
 	}
 
-	public int deletar(int size) {
+	public int deletar() {
 		System.out.println("Escolha o id para deletar o cliente");
-		int escolha = -1;
-		while(escolha < 0 || escolha > size) {escolha = Integer.parseInt(sc.nextLine()); }
+		int escolha = Integer.parseInt(sc.nextLine());
 		return escolha;
 	}
 	

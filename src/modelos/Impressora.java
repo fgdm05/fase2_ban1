@@ -1,16 +1,26 @@
 package modelos;
 
 public class Impressora {
+	private String nome;
 	private int id, nvlCiano, nvlMagenta, nvlAmarelo, nvlPreto;
 	public Impressora() {
 	}
 	
-	public Impressora(int id, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto) {
+	public Impressora(String nome, int id, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto) {
+		this.nome = nome;
 		this.id = id;
 		this.nvlCiano = nvlCiano;
 		this.nvlMagenta = nvlMagenta;
 		this.nvlAmarelo = nvlAmarelo;
 		this.nvlPreto = nvlPreto;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public int getId() {
