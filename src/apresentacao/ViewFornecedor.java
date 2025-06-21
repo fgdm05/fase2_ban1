@@ -17,6 +17,7 @@ public class ViewFornecedor implements View<Fornecedor> {
 		System.out.println("Formato CNPJ: 12345678900000");
 		System.out.println("CNPJ: ");
 		f.setCnpj(sc.next("[0-9]{14}"));
+		sc.nextLine();
 		System.out.println("Razao social: ");
 		f.setRazaoSocial(sc.nextLine());
 		return f;
