@@ -26,7 +26,7 @@ public class Program {
 				System.out.println("5 - Visualizar catálogo");
 				System.out.println("6 - Excluir produto");
 				System.out.println("0 - Sair");
-				while(escolha < 0 || escolha > 6) {escolha = Integer.parseInt(sc.nextLine()); }
+				do {escolha = Integer.parseInt(sc.nextLine()); } while(escolha < 0 || escolha > 6);
 				
 				switch(escolha) {
 				case 0:
