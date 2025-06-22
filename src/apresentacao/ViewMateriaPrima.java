@@ -23,6 +23,7 @@ public class ViewMateriaPrima implements View<MateriaPrima> {
 	public int deletar() {
 		System.out.println("Escolha o id da materia prima que deseja deletar: ");
 		int escolha = sc.nextInt();
+		sc.nextLine();
 		return escolha;
 	}
 	

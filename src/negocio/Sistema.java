@@ -16,6 +16,7 @@ import modelos.Impressora;
 import modelos.MateriaPrima;
 import modelos.Produto;
 import persistencia.FornecedorDAO;
+import persistencia.MateriaPrimaDAO;
 
 public class Sistema {
 	static ViewCliente vc = null;
@@ -26,8 +27,8 @@ public class Sistema {
 	static List<Cliente> clientes = null;
 	static List<Produto> produtos = null;
 	static List<Impressora> impressoras = null;
-	static List<MateriaPrima> materiasPrimas = null;
 	static FornecedorDAO fornecedorDAO = null;
+	static MateriaPrimaDAO materiaPrimaDAO = null;
 	static {
 		clientes = new ArrayList<Cliente>();
 		vc = new ViewCliente();
@@ -43,8 +44,8 @@ public class Sistema {
 		vf = new ViewFornecedor();
 		produtos = new ArrayList<Produto>();
 		impressoras = new ArrayList<Impressora>();
-		materiasPrimas = new ArrayList<MateriaPrima>();
 		fornecedorDAO = new FornecedorDAO();
+		materiaPrimaDAO = new MateriaPrimaDAO();
 	}
 	public void verClientes() {
 		clientes.forEach(System.out::println);
@@ -107,21 +108,25 @@ public class Sistema {
 		System.out.println("Id escolhido nao existe");
 	}
 	
-	public void criarMateriaPrima() {
-		materiasPrimas.add(vmp.criar());
+	public void criarMateriaPrima( Connection con ) throws SQLException {
+		materiaPrimaDAO.create(vmp.criar(), con);
 	}
 	
-	public void verMateriasPrimas() {
-		materiasPrimas.forEach(System.out::println);
+	public List<MateriaPrima> verMateriasPrimas( Connection con ) throws SQLException {
+		List<MateriaPrima> mps = materiaPrimaDAO.selectAll(con);
+		mps.forEach(System.out::println);
+		return mps;
 	}
 	
-	public void deletarMateriaPrima() {
-		verMateriasPrimas();
+	public void deletarMateriaPrima( Connection con ) throws SQLException {
+		List<MateriaPrima> mps = verMateriasPrimas(con);
 		int escolha = vmp.deletar();
-		for( MateriaPrima mp : materiasPrimas ) {
+		for( MateriaPrima mp : mps ) {
 			if( mp.getId() == escolha ) {
-				materiasPrimas.remove(mp);
+				mps.remove(mp);
+				materiaPrimaDAO.remove(mp, con);
 				System.out.println("Materia prima" + mp + "removida");
+				return;
 			}
 		}
 		System.out.println("Id escolhido não existe");

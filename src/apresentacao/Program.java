@@ -43,13 +43,13 @@ public class Program {
 					sys.deletarFornecedor(con);
 					break;
 				case 4:
-					sys.criarMateriaPrima();
+					sys.criarMateriaPrima(con);
 					break;
 				case 5:
-					sys.verMateriasPrimas();
+					sys.verMateriasPrimas(con);
 					break;
 				case 6:
-					sys.deletarMateriaPrima();
+					sys.deletarMateriaPrima(con);
 					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);
