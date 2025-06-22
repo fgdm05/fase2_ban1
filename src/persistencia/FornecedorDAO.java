@@ -15,7 +15,7 @@ public class FornecedorDAO {
 		
 	}
 	
-	public int createId(Connection con) throws SQLException {
+	private int createId(Connection con) throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idForn')");
 			ResultSet rs = novoId.executeQuery();

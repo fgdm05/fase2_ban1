@@ -16,6 +16,22 @@ public class ViewMateriaPrima implements View<MateriaPrima> {
 		mp.setNome(sc.nextLine());
 		System.out.println("Quantidade: ");
 		mp.setQuantidade(Integer.parseInt(sc.next()));
+		System.out.println("Digite 1, caso a materia prima possua volume ou 0, caso nao possua");
+		System.out.println("Ex de materia prima que possui volume: Tinta p/impressora");
+		int opt = sc.nextInt();
+		sc.nextLine();
+		switch(opt) {
+		case 1:
+			mp.setVol(true);
+			System.out.println("Digite o volume da materia prima: ");
+			mp.setVolume(sc.nextInt());
+			sc.nextLine();
+			break;
+		default:
+			mp.setVol(false);
+			mp.setVolume(-1);
+			break;
+		}
 		System.out.println("Materia prima " + mp + " criada com sucesso!");
 		return mp;
 	}

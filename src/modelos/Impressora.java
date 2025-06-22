@@ -6,7 +6,7 @@ public class Impressora {
 	public Impressora() {
 	}
 	
-	public Impressora(String nome, int id, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto) {
+	public Impressora(int id, String nome, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto) {
 		this.nome = nome;
 		this.id = id;
 		this.nvlCiano = nvlCiano;
@@ -52,6 +52,12 @@ public class Impressora {
 	}
 	public void setNvlPreto(int nvlPreto) {
 		this.nvlPreto = nvlPreto;
+	}
+
+	@Override
+	public String toString() {
+		return "Impressora [nome=" + nome + ", id=" + id + ", nvlCiano=" + nvlCiano + ", nvlMagenta=" + nvlMagenta
+				+ ", nvlAmarelo=" + nvlAmarelo + ", nvlPreto=" + nvlPreto + "]";
 	}
 	
 	

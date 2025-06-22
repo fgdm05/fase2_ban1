@@ -15,7 +15,7 @@ public class MateriaPrimaDAO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int createId(Connection con) throws SQLException {
+	private int createId(Connection con) throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idMp')");
 			ResultSet rs = novoId.executeQuery();
@@ -28,11 +28,13 @@ public class MateriaPrimaDAO {
 	public void create(MateriaPrima mp, Connection con) throws SQLException {
 		mp.setId(createId(con));
 		PreparedStatement st;
-			st = con.prepareStatement("INSERT INTO materiasPrimas (idMp, nome, quantidade)" +
-									 "VALUES (?,?,?)");
+			st = con.prepareStatement("INSERT INTO materiasPrimas (idMp, nome, quantidade, volume, vol)" +
+									 "VALUES (?,?,?,?,?)");
 			st.setInt(1, mp.getId());
 			st.setString(2, mp.getNome());
 			st.setInt(3, mp.getQuantidade());
+			st.setInt(4, mp.getVolume());
+			st.setBoolean(5, mp.isVol());
 			st.execute();
 			st.close();
 	}
@@ -46,7 +48,9 @@ public class MateriaPrimaDAO {
 				int id = rs.getInt(1);
 				String nome = rs.getString(2);
 				int quantidade = rs.getInt(3);
-				MateriaPrima mp = new MateriaPrima(id, nome, quantidade);
+				int volume = rs.getInt(4);
+				boolean vol = rs.getBoolean(5);
+				MateriaPrima mp = new MateriaPrima(id, nome, quantidade, volume, vol);
 				mps.add(mp);
 			}
 			return mps;

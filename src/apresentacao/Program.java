@@ -27,8 +27,11 @@ public class Program {
 				System.out.println("4 - Criar uma materia prima");
 				System.out.println("5 - Visualizar materias primas");
 				System.out.println("6 - Excluir materia prima");
+				System.out.println("7 - Criar um impressora");
+				System.out.println("8 - Visualizar todas as impressoras");
+				System.out.println("9 - Excluir uma impressora");
 				System.out.println("0 - Sair");
-				do {escolha = Integer.parseInt(sc.next()); } while(escolha < 0 || escolha > 6);
+				do {escolha = Integer.parseInt(sc.next()); } while(escolha < 0 || escolha > 9);
 				
 				switch(escolha) {
 				case 0:
@@ -50,6 +53,15 @@ public class Program {
 					break;
 				case 6:
 					sys.deletarMateriaPrima(con);
+					break;
+				case 7:
+					sys.criarImpressora(con);
+					break;
+				case 8:
+					sys.verImpressoras(con);
+					break;
+				case 9:
+					sys.deletarImpressora(con);
 					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);

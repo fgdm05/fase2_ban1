@@ -16,6 +16,7 @@ import modelos.Impressora;
 import modelos.MateriaPrima;
 import modelos.Produto;
 import persistencia.FornecedorDAO;
+import persistencia.ImpressoraDAO;
 import persistencia.MateriaPrimaDAO;
 
 public class Sistema {
@@ -26,7 +27,7 @@ public class Sistema {
 	static ViewFornecedor vf = null;
 	static List<Cliente> clientes = null;
 	static List<Produto> produtos = null;
-	static List<Impressora> impressoras = null;
+	static ImpressoraDAO impressoraDAO = null;
 	static FornecedorDAO fornecedorDAO = null;
 	static MateriaPrimaDAO materiaPrimaDAO = null;
 	static {
@@ -43,7 +44,7 @@ public class Sistema {
 		vmp = new ViewMateriaPrima();
 		vf = new ViewFornecedor();
 		produtos = new ArrayList<Produto>();
-		impressoras = new ArrayList<Impressora>();
+		impressoraDAO = new ImpressoraDAO();
 		fornecedorDAO = new FornecedorDAO();
 		materiaPrimaDAO = new MateriaPrimaDAO();
 	}
@@ -80,28 +81,31 @@ public class Sistema {
 		for (Produto p : produtos) {
 			if(p.getId() == escolha) {
 				produtos.remove(p);
-				System.out.println("Produto" + p + "removido");
+				System.out.println("Produto " + p + " removido");
 				return;
 			}
 		}
 		System.out.println("Id escolhido nao existe");
 	}
 	
-	public void criarImpressora() {
-		impressoras.add(vi.criar());
+	public void criarImpressora(Connection con) throws SQLException {
+		impressoraDAO.create(vi.criar(),con);
 	}
 	
-	public void verImpressoras() {
-		impressoras.forEach(System.out::println);
+	public List<Impressora> verImpressoras(Connection con) throws SQLException {
+		List<Impressora> imps = impressoraDAO.selectAll(con);
+		imps.forEach(System.out::println);
+		return imps;
 	}
 	
-	public void deletarImpressora() {
-		verImpressoras();
+	public void deletarImpressora(Connection con) throws SQLException {
+		List<Impressora> imps = verImpressoras(con);
 		int escolha = vi.deletar();
-		for( Impressora i : impressoras ) {
+		for( Impressora i : imps ) {
 			if(i.getId() == escolha) {
-				impressoras.remove(i);
-				System.out.println("Impressora" + i + "removida");
+				imps.remove(i);
+				impressoraDAO.remove(i, con);
+				System.out.println("Impressora " + i + " removida");
 				return;
 			}
 		}
@@ -125,7 +129,7 @@ public class Sistema {
 			if( mp.getId() == escolha ) {
 				mps.remove(mp);
 				materiaPrimaDAO.remove(mp, con);
-				System.out.println("Materia prima" + mp + "removida");
+				System.out.println("Materia prima " + mp + " removida");
 				return;
 			}
 		}
@@ -149,7 +153,7 @@ public class Sistema {
 			if( f.getId() == escolha ) {
 				fornecedores.remove(f);
 				fornecedorDAO.remove(f, con);
-				System.out.println("Fornecedor" + f + "removida");
+				System.out.println("Fornecedor " + f + " removido");
 				return;
 			}
 		}
