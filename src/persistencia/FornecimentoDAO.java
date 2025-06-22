@@ -14,11 +14,13 @@ import modelos.MateriaPrima;
 
 public class FornecimentoDAO {
 
-	public FornecimentoDAO() {
-		// TODO Auto-generated constructor stub
+	private Connection con;
+
+	public FornecimentoDAO(Connection con) {
+		this.con = con;
 	}
 	
-	private int createId(Connection con) throws SQLException {
+	private int createId() throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idFcm')");
 			ResultSet rs = novoId.executeQuery();
@@ -28,8 +30,8 @@ public class FornecimentoDAO {
 			return -1;
 	}
 	
-	public void create(Fornecimento f, Connection con) throws SQLException {
-		f.setId(createId(con));
+	public void create(Fornecimento f) throws SQLException {
+		f.setId(createId());
 		PreparedStatement inserir;
 			inserir = con.prepareStatement("INSERT INTO fornecimentos (idFcm, quantidade, dataHora, idForn, " +
 										  "idMp) VALUES (?,?,?,?,?)");
@@ -48,7 +50,7 @@ public class FornecimentoDAO {
 			aumentaQtd.executeUpdate();
 	}
 	
-	public List<Fornecimento> selectAll(Connection con) throws SQLException {
+	public List<Fornecimento> selectAll() throws SQLException {
 		List<Fornecimento> fcms = new ArrayList<Fornecimento>();
 		PreparedStatement st;
 			st = con.prepareStatement("SELECT * FROM fornecimentos");
@@ -65,7 +67,7 @@ public class FornecimentoDAO {
 		return fcms;
 	}
 	
-	public List<Fornecimento> selectAllWithMpForn(Connection con) throws SQLException {
+	public List<Fornecimento> selectAllWithMpForn() throws SQLException {
 		List<Fornecimento> fcms = new ArrayList<Fornecimento>();
 		PreparedStatement st;
 			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, dataHora, f.*, mp.* FROM fornecimentos fcm "
@@ -84,7 +86,7 @@ public class FornecimentoDAO {
 			return fcms;
 	}
 	
-	public void remove(Fornecimento f, Connection con ) throws SQLException {
+	public void remove(Fornecimento f) throws SQLException {
 		PreparedStatement st;
 			st = con.prepareStatement("DELETE FROM fornecimentos WHERE idFcm = ?");
 			st.setInt(1, f.getId());

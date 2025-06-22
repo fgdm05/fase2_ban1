@@ -10,14 +10,15 @@ import persistencia.ConnectionFactory;
 public class Program {
 	
 	static Scanner sc = new Scanner(System.in);
-	static Sistema sys = new Sistema();
+	static Sistema sys = null;
+	static Connection con = null;
+	
 	public static void main(String[] args) throws SQLException {
 		System.out.println("Começando programa...");
-		ConnectionFactory c = new ConnectionFactory();
-		Connection con = c.createConnection();
-		
+	
 		try {
-			// Connection con = new ConnectionFactory().createConnection();
+			con = new ConnectionFactory().createConnection();
+			sys = new Sistema(con);
 			int escolha = -1000;
 			while(escolha != 0) {
 				
@@ -42,43 +43,43 @@ public class Program {
 				case 0:
 					break;
 				case 1:
-					sys.criarFornecedor(con);
+					sys.criarFornecedor();
 					break;
 				case 2:
-					sys.verFornecedores(con);
+					sys.verFornecedores();
 					break;
 				case 3:
-					sys.deletarFornecedor(con);
+					sys.deletarFornecedor();
 					break;
 				case 4:
-					sys.criarMateriaPrima(con);
+					sys.criarMateriaPrima();
 					break;
 				case 5:
-					sys.verMateriasPrimas(con);
+					sys.verMateriasPrimas();
 					break;
 				case 6:
-					sys.deletarMateriaPrima(con);
+					sys.deletarMateriaPrima();
 					break;
 				case 7:
-					sys.criarImpressora(con);
+					sys.criarImpressora();
 					break;
 				case 8:
-					sys.verImpressoras(con);
+					sys.verImpressoras();
 					break;
 				case 9:
-					sys.deletarImpressora(con);
+					sys.deletarImpressora();
 					break;
 				case 10:
-					sys.criarFornecimento(con);
+					sys.criarFornecimento();
 					break;
 				case 11:
-					sys.verFornecimentos(con);
+					sys.verFornecimentos();
 					break;
 				case 12:
-					sys.verFornecimentosComFornEmp(con);
+					sys.verFornecimentosComFornEmp();
 					break;
 				case 13:
-					sys.deletarFornecimento(con);
+					sys.deletarFornecimento();
 					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);

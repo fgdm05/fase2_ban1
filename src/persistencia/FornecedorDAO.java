@@ -11,11 +11,13 @@ import modelos.Fornecedor;
 
 public class FornecedorDAO {
 
-	public FornecedorDAO() {
-		
+	private Connection con;
+
+	public FornecedorDAO(Connection con) {
+		this.con = con;
 	}
 	
-	private int createId(Connection con) throws SQLException {
+	private int createId() throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idForn')");
 			ResultSet rs = novoId.executeQuery();
@@ -25,8 +27,8 @@ public class FornecedorDAO {
 			return -1;
 	}
 	
-	public void create(Fornecedor f, Connection con) throws SQLException {
-		f.setId(createId(con));
+	public void create(Fornecedor f) throws SQLException {
+		f.setId(createId());
 		PreparedStatement st;
 			st = con.prepareStatement("INSERT INTO fornecedores (idForn, nome, cnpj, razaoSocial)" +
 									 "VALUES (?,?,?,?)");
@@ -38,7 +40,7 @@ public class FornecedorDAO {
 			st.close();
 	}
 	
-	public List<Fornecedor> selectAll (Connection con) throws SQLException {
+	public List<Fornecedor> selectAll () throws SQLException {
 		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 		PreparedStatement st;
 			st = con.prepareStatement("SELECT * FROM fornecedores");
@@ -54,7 +56,7 @@ public class FornecedorDAO {
 			return fornecedores;
 	}
 	
-	public void remove(Fornecedor f, Connection con) throws SQLException {
+	public void remove(Fornecedor f) throws SQLException {
 		PreparedStatement st;
 			st = con.prepareStatement("DELETE FROM fornecedores WHERE idForn = ?");
 			// TODO: exclusão em fornecimentos tb

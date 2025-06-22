@@ -11,11 +11,13 @@ import modelos.MateriaPrima;
 
 public class MateriaPrimaDAO {
 
-	public MateriaPrimaDAO() {
-		// TODO Auto-generated constructor stub
+	private static Connection con = null;
+	
+	public MateriaPrimaDAO(Connection con) {
+		this.con = con;
 	}
 	
-	private int createId(Connection con) throws SQLException {
+	private int createId() throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idMp')");
 			ResultSet rs = novoId.executeQuery();
@@ -25,8 +27,8 @@ public class MateriaPrimaDAO {
 			return -1;
 	}
 	
-	public void create(MateriaPrima mp, Connection con) throws SQLException {
-		mp.setId(createId(con));
+	public void create(MateriaPrima mp) throws SQLException {
+		mp.setId(createId());
 		PreparedStatement st;
 			st = con.prepareStatement("INSERT INTO materiasPrimas (idMp, nome, quantidade, volume, vol)" +
 									 "VALUES (?,?,?,?,?)");
@@ -39,7 +41,7 @@ public class MateriaPrimaDAO {
 			st.close();
 	}
 	
-	public List<MateriaPrima> selectAll( Connection con ) throws SQLException {
+	public List<MateriaPrima> selectAll() throws SQLException {
 		List<MateriaPrima> mps = new ArrayList<MateriaPrima>();
 		PreparedStatement st;
 			st = con.prepareStatement("SELECT * FROM materiasPrimas");
@@ -56,7 +58,7 @@ public class MateriaPrimaDAO {
 			return mps;
 	}
 	
-	public void remove( MateriaPrima mp, Connection con ) throws SQLException {
+	public void remove( MateriaPrima mp) throws SQLException {
 		PreparedStatement st;
 			st = con.prepareStatement("DELETE FROM materiasPrimas WHERE idMp = ?");
 			// TODO: exclusão em fornecimentos tb

@@ -11,11 +11,13 @@ import modelos.Impressora;
 
 public class ImpressoraDAO {
 
-	public ImpressoraDAO() {
-		// TODO Auto-generated constructor stub
+	private Connection con = null;
+	
+	public ImpressoraDAO(Connection con) {
+		this.con = con;
 	}
 	
-	private int createId(Connection con) throws SQLException {
+	private int createId() throws SQLException {
 		PreparedStatement novoId;
 			novoId = con.prepareStatement("SELECT NEXTVAL('idImp')");
 			ResultSet rs = novoId.executeQuery();
@@ -25,8 +27,8 @@ public class ImpressoraDAO {
 			return -1;
 	}
 	
-	public void create(Impressora i, Connection con) throws SQLException {
-		i.setId(createId(con));
+	public void create(Impressora i) throws SQLException {
+		i.setId(createId());
 		PreparedStatement st;
 			st = con.prepareStatement("INSERT INTO impressoras (idImp, nome, nvlCiano, nvlMagenta, " +
 									 "nvlAmarelo, nvlPreto) VALUES (?,?,?,?,?,?)");
@@ -40,7 +42,7 @@ public class ImpressoraDAO {
 			st.close();
 	}
 	
-	public List<Impressora> selectAll(Connection con) throws SQLException {
+	public List<Impressora> selectAll() throws SQLException {
 		List<Impressora> imps = new ArrayList<Impressora>();
 		PreparedStatement st;
 			st = con.prepareStatement("SELECT * FROM impressoras");
@@ -58,7 +60,7 @@ public class ImpressoraDAO {
 			return imps;
 	}
 	
-	public void remove(Impressora i, Connection con) throws SQLException {
+	public void remove(Impressora i) throws SQLException {
 		PreparedStatement st;
 			st = con.prepareStatement("DELETE FROM impressoras WHERE idImp = ?");
 			st.setInt(1, i.getId());
