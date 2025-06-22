@@ -48,8 +48,8 @@ public class Abastecimento {
 		return data;
 	}
 
-	public void setData(java.util.Date data) {
-		this.data = new Date(data.getTime());
+	public void setData(java.sql.Date data) {
+		this.data = data;
 	}
 
 	public int getQuantidade() {
