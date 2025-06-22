@@ -4,17 +4,21 @@ import java.util.Date;
 
 public class Fornecimento {
 	private int id, quantidade, idFornecedor, idMateriaPrima;
-	private Date dataHoraForn;
+	private java.sql.Date dataHoraForn;
 	public Fornecimento() {
 
 	}
-	public Fornecimento(int id, int quantidade, int idFornecedor, int idMateriaPrima, Date dataHoraForn) {
+	public Fornecimento(int id, int quantidade, java.sql.Date dataHoraForn, int idFornecedor, int idMateriaPrima) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.idFornecedor = idFornecedor;
 		this.idMateriaPrima = idMateriaPrima;
 		this.dataHoraForn = dataHoraForn;
+	}
+	
+	public void convertData(java.util.Date data) {
+		dataHoraForn = new java.sql.Date(data.getTime());
 	}
 	public int getId() {
 		return id;
@@ -40,11 +44,16 @@ public class Fornecimento {
 	public void setIdMateriaPrima(int idMateriaPrima) {
 		this.idMateriaPrima = idMateriaPrima;
 	}
-	public Date getDataHoraForn() {
+	public java.sql.Date getDataHoraForn() {
 		return dataHoraForn;
 	}
-	public void setDataHoraForn(Date dataHoraForn) {
+	public void setDataHoraForn(java.sql.Date dataHoraForn) {
 		this.dataHoraForn = dataHoraForn;
+	}
+	@Override
+	public String toString() {
+		return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", idFornecedor=" + idFornecedor
+				+ ", idMateriaPrima=" + idMateriaPrima + ", dataHoraForn=" + dataHoraForn + "]";
 	}
 	
 	

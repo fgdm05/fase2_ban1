@@ -7,29 +7,34 @@ import java.util.List;
 
 import apresentacao.ViewCliente;
 import apresentacao.ViewFornecedor;
+import apresentacao.ViewFornecimento;
 import apresentacao.ViewImpressora;
 import apresentacao.ViewMateriaPrima;
 import apresentacao.ViewProduto;
 import modelos.Cliente;
 import modelos.Fornecedor;
+import modelos.Fornecimento;
 import modelos.Impressora;
 import modelos.MateriaPrima;
 import modelos.Produto;
 import persistencia.FornecedorDAO;
+import persistencia.FornecimentoDAO;
 import persistencia.ImpressoraDAO;
 import persistencia.MateriaPrimaDAO;
 
 public class Sistema {
-	static ViewCliente vc = null;
-	static ViewProduto vp = null;
-	static ViewImpressora vi = null;
-	static ViewMateriaPrima vmp = null;
-	static ViewFornecedor vf = null;
-	static List<Cliente> clientes = null;
-	static List<Produto> produtos = null;
-	static ImpressoraDAO impressoraDAO = null;
-	static FornecedorDAO fornecedorDAO = null;
-	static MateriaPrimaDAO materiaPrimaDAO = null;
+	private static ViewCliente vc = null;
+	private static ViewProduto vp = null;
+	private static ViewImpressora vi = null;
+	private static ViewMateriaPrima vmp = null;
+	private static ViewFornecedor vf = null;
+	private static ViewFornecimento vfcm = null;
+	private static List<Cliente> clientes = null;
+	private static List<Produto> produtos = null;
+	private static ImpressoraDAO impressoraDAO = null;
+	private static FornecedorDAO fornecedorDAO = null;
+	private static MateriaPrimaDAO materiaPrimaDAO = null;
+	private static FornecimentoDAO fornecimentoDAO = null;
 	static {
 		clientes = new ArrayList<Cliente>();
 		vc = new ViewCliente();
@@ -43,10 +48,12 @@ public class Sistema {
 		vi = new ViewImpressora();
 		vmp = new ViewMateriaPrima();
 		vf = new ViewFornecedor();
+		vfcm = new ViewFornecimento();
 		produtos = new ArrayList<Produto>();
 		impressoraDAO = new ImpressoraDAO();
 		fornecedorDAO = new FornecedorDAO();
 		materiaPrimaDAO = new MateriaPrimaDAO();
+		fornecimentoDAO = new FornecimentoDAO();
 	}
 	public void verClientes() {
 		clientes.forEach(System.out::println);
@@ -153,6 +160,32 @@ public class Sistema {
 			if( f.getId() == escolha ) {
 				fornecedores.remove(f);
 				fornecedorDAO.remove(f, con);
+				System.out.println("Fornecedor " + f + " removido");
+				return;
+			}
+		}
+		System.out.println("Id escolhido não existe");
+	}
+	
+	public void criarFornecimento(Connection con) throws SQLException {
+		verFornecedores(con);
+		verMateriasPrimas(con);
+		fornecimentoDAO.create(vfcm.criar(), con);
+	}
+	
+	public List<Fornecimento> verFornecimentos(Connection con) throws SQLException {
+		List<Fornecimento> fcms = fornecimentoDAO.selectAll(con);
+		fcms.forEach(System.out::println);
+		return fcms;
+	}
+	
+	public void deletarFornecimento( Connection con ) throws SQLException {
+		List<Fornecimento> fcms = verFornecimentos( con );
+		int escolha = vfcm.deletar();
+		for( Fornecimento f : fcms ) {
+			if( f.getId() == escolha ) {
+				fcms.remove(f);
+				fornecimentoDAO.remove(f, con);
 				System.out.println("Fornecedor " + f + " removido");
 				return;
 			}
