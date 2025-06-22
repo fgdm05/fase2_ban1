@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelos.Fornecedor;
 import modelos.Fornecimento;
+import modelos.MateriaPrima;
 
 public class FornecimentoDAO {
 
@@ -61,6 +63,25 @@ public class FornecimentoDAO {
 				fcms.add(f);
 			}
 		return fcms;
+	}
+	
+	public List<Fornecimento> selectAllWithMpForn(Connection con) throws SQLException {
+		List<Fornecimento> fcms = new ArrayList<Fornecimento>();
+		PreparedStatement st;
+			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, dataHora, f.*, mp.* FROM fornecimentos fcm "
+					+ "JOIN fornecedores f ON fcm.idForn = f.idForn JOIN materiasPrimas mp ON fcm.idMp = mp.idMp");
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				Fornecimento fcm = new Fornecimento(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getInt(4), 
+						rs.getInt(8));
+				Fornecedor f = new Fornecedor(rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
+				MateriaPrima mp = new MateriaPrima(rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getInt(11),
+						rs.getBoolean(12));
+				fcm.setFornecedor(f);
+				fcm.setMateriaPrima(mp);
+				fcms.add(fcm);
+			}
+			return fcms;
 	}
 	
 	public void remove(Fornecimento f, Connection con ) throws SQLException {

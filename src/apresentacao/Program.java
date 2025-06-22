@@ -32,9 +32,10 @@ public class Program {
 				System.out.println("9 - Excluir uma impressora");
 				System.out.println("10 - Criar fornecimento");
 				System.out.println("11 - Visualizar historico de fornecimento");
-				System.out.println("12 - Excluir fornecimento");
+				System.out.println("12 - Visualizar historico de fornecimento com fornecedores e materias primas");
+				System.out.println("13 - Excluir fornecimento");
 				System.out.println("0 - Sair");
-				do {escolha = sc.nextInt(); } while(escolha < 0 || escolha > 12);
+				do {escolha = sc.nextInt(); } while(escolha < 0 || escolha > 13);
 				sc.nextLine();
 				
 				switch(escolha) {
@@ -74,6 +75,9 @@ public class Program {
 					sys.verFornecimentos(con);
 					break;
 				case 12:
+					sys.verFornecimentosComFornEmp(con);
+					break;
+				case 13:
 					sys.deletarFornecimento(con);
 					break;
 				default:

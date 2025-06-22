@@ -5,6 +5,8 @@ import java.util.Date;
 public class Fornecimento {
 	private int id, quantidade, idFornecedor, idMateriaPrima;
 	private java.sql.Date dataHoraForn;
+	private Fornecedor fornecedor = null;
+	private MateriaPrima materiaPrima = null;
 	public Fornecimento() {
 
 	}
@@ -50,8 +52,25 @@ public class Fornecimento {
 	public void setDataHoraForn(java.sql.Date dataHoraForn) {
 		this.dataHoraForn = dataHoraForn;
 	}
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	public MateriaPrima getMateriaPrima() {
+		return materiaPrima;
+	}
+	public void setMateriaPrima(MateriaPrima materiaPrima) {
+		this.materiaPrima = materiaPrima;
+	}
 	@Override
 	public String toString() {
+		if( fornecedor != null && materiaPrima != null ) {
+			return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", " + fornecedor
+					+ ", " + materiaPrima + ", dataHoraForn=" + dataHoraForn + "]";
+		}
 		return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", idFornecedor=" + idFornecedor
 				+ ", idMateriaPrima=" + idMateriaPrima + ", dataHoraForn=" + dataHoraForn + "]";
 	}
