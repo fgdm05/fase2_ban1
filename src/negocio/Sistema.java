@@ -27,7 +27,6 @@ public class Sistema {
 	static List<Produto> produtos = null;
 	static List<Impressora> impressoras = null;
 	static List<MateriaPrima> materiasPrimas = null;
-	static List<Fornecedor> fornecedores = null;
 	static FornecedorDAO fornecedorDAO = null;
 	static {
 		clientes = new ArrayList<Cliente>();
@@ -45,7 +44,6 @@ public class Sistema {
 		produtos = new ArrayList<Produto>();
 		impressoras = new ArrayList<Impressora>();
 		materiasPrimas = new ArrayList<MateriaPrima>();
-		fornecedores = new ArrayList<Fornecedor>();
 		fornecedorDAO = new FornecedorDAO();
 	}
 	public void verClientes() {
@@ -133,17 +131,21 @@ public class Sistema {
 		fornecedorDAO.create(vf.criar(), con);
 	}
 	
-	public void verFornecedores() {
+	public List<Fornecedor> verFornecedores( Connection con ) throws SQLException {
+		List<Fornecedor> fornecedores = fornecedorDAO.selectAll(con);
 		fornecedores.forEach(System.out::println);
+		return fornecedores;
 	}
 	
-	public void deletarFornecedor() {
-		verFornecedores();
-		int escolha = vmp.deletar();
+	public void deletarFornecedor( Connection con ) throws SQLException {
+		List<Fornecedor> fornecedores = verFornecedores( con );
+		int escolha = vf.deletar();
 		for( Fornecedor f : fornecedores ) {
 			if( f.getId() == escolha ) {
 				fornecedores.remove(f);
+				fornecedorDAO.remove(f, con);
 				System.out.println("Fornecedor" + f + "removida");
+				return;
 			}
 		}
 		System.out.println("Id escolhido não existe");

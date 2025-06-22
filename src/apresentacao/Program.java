@@ -37,10 +37,10 @@ public class Program {
 					sys.criarFornecedor(con);
 					break;
 				case 2:
-					sys.verFornecedores();
+					sys.verFornecedores(con);
 					break;
 				case 3:
-					sys.deletarFornecedor();
+					sys.deletarFornecedor(con);
 					break;
 				case 4:
 					sys.criarMateriaPrima();

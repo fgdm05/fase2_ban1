@@ -40,6 +40,11 @@ public class Fornecedor {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	@Override
+	public String toString() {
+		return "Fornecedor [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", razaoSocial=" + razaoSocial + "]";
+	}
 	
 	
 	

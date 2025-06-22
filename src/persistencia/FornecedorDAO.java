@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelos.Fornecedor;
 
@@ -34,6 +36,30 @@ public class FornecedorDAO {
 			st.setString(4, f.getRazaoSocial());
 			st.execute();
 			st.close();
+	}
+	
+	public List<Fornecedor> selectAll (Connection con) throws SQLException {
+		List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+		PreparedStatement st;
+			st = con.prepareStatement("SELECT * FROM fornecedores");
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt(1);
+				String nome = rs.getString(2);
+				String cnpj = rs.getString(3);
+				String razaoSocial = rs.getString(4);
+				Fornecedor f = new Fornecedor(id, nome, cnpj, razaoSocial);
+				fornecedores.add(f);
+			}
+			return fornecedores;
+	}
+	
+	public void remove(Fornecedor f, Connection con) throws SQLException {
+		PreparedStatement st;
+			st = con.prepareStatement("DELETE FROM fornecedores WHERE idForn = ?");
+			// TODO: exclusão em fornecimentos tb
+			st.setInt(1, f.getId());
+			st.executeUpdate();
 	}
 
 }

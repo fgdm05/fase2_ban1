@@ -26,6 +26,7 @@ public class ViewFornecedor implements View<Fornecedor> {
 	public int deletar() {
 		System.out.println("Escolha o id do fornecedor que deseja deletar: ");
 		int escolha = sc.nextInt();
+		sc.nextLine();
 		return escolha;
 	}
 	
