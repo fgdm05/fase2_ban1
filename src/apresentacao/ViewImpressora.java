@@ -10,19 +10,33 @@ public class ViewImpressora implements View<Impressora> {
 		// TODO Auto-generated constructor stub
 	}
 	
+	private static int checkQuantidade() {
+		int tinta = sc.nextInt();
+		while(tinta < 0) {
+			System.out.println("Quantidade não pode ser negativa!");
+			tinta = sc.nextInt();
+			sc.nextLine();
+		}
+		return tinta;
+	}
+	
 	public Impressora criar() {
 		Impressora imp = new Impressora();
 		System.out.println("Digite o nome da impressora");
 		imp.setNome(sc.nextLine());
 		System.out.println("Digite o nível de tinta Ciano");
-		imp.setNvlCiano(Integer.parseInt(sc.next()));
+		imp.setNvlCiano(checkQuantidade());
 		System.out.println("Digite o nível de tinta Amarelo");
-		imp.setNvlAmarelo(Integer.parseInt(sc.next()));
+		imp.setNvlAmarelo(checkQuantidade());
 		System.out.println("Digite o nível de tinta Magenta");
-		imp.setNvlMagenta(Integer.parseInt(sc.next()));
+		imp.setNvlMagenta(checkQuantidade());
 		System.out.println("Digite o nível de tinta Preta");
-		imp.setNvlPreto(Integer.parseInt(sc.next()));
-		System.out.println("Impressora " + imp + " Criada com sucesso!" );
+		imp.setNvlPreto(checkQuantidade());
+		
+		System.out.println("Digite quantas folhas tem: ");
+		imp.setFolhas(checkQuantidade());
+		
+		System.out.println(imp + " Criada com sucesso!" );
 		return imp;
 	}
 	

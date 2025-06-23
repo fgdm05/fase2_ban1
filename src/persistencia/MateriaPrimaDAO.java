@@ -30,11 +30,12 @@ public class MateriaPrimaDAO {
 	public void create(MateriaPrima mp) throws SQLException {
 		mp.setId(createId());
 		PreparedStatement st;
-			st = con.prepareStatement("INSERT INTO materiasPrimas (idMp, nome, quantidade, volume, vol)" +
-									 "VALUES (?,?,?,?,?)");
+			st = con.prepareStatement("INSERT INTO materiasPrimas (idMp, nome, quantidade, tipoAbs)" +
+									 "VALUES (?,?,?,?)");
 			st.setInt(1, mp.getId());
 			st.setString(2, mp.getNome());
 			st.setInt(3, mp.getQuantidade());
+			st.setString(4, mp.getTipoMateriaPrima());
 			st.execute();
 			st.close();
 	}
@@ -48,7 +49,8 @@ public class MateriaPrimaDAO {
 				int id = rs.getInt(1);
 				String nome = rs.getString(2);
 				int quantidade = rs.getInt(3);
-				MateriaPrima mp = new MateriaPrima(id, nome, quantidade);
+				String tipoAbs = rs.getString(4);
+				MateriaPrima mp = new MateriaPrima(id, nome, quantidade, tipoAbs);
 				mps.add(mp);
 			}
 			return mps;
@@ -57,7 +59,6 @@ public class MateriaPrimaDAO {
 	public void remove( MateriaPrima mp) throws SQLException {
 		PreparedStatement st;
 			st = con.prepareStatement("DELETE FROM materiasPrimas WHERE idMp = ?");
-			// TODO: exclusão em fornecimentos tb
 			st.setInt(1, mp.getId());
 			st.executeUpdate();
 	}

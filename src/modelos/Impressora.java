@@ -2,19 +2,28 @@ package modelos;
 
 public class Impressora {
 	private String nome;
-	private int id, nvlCiano, nvlMagenta, nvlAmarelo, nvlPreto;
+	private int id, nvlCiano, nvlMagenta, nvlAmarelo, nvlPreto, folhas;
 	public Impressora() {
 	}
 	
-	public Impressora(int id, String nome, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto) {
+	public Impressora(int id, String nome, int nvlCiano, int nvlMagenta, int nvlAmarelo, int nvlPreto, int quantidade) {
 		this.nome = nome;
 		this.id = id;
 		this.nvlCiano = nvlCiano;
 		this.nvlMagenta = nvlMagenta;
 		this.nvlAmarelo = nvlAmarelo;
 		this.nvlPreto = nvlPreto;
+		this.folhas = quantidade;
 	}
 	
+	public int getFolhas() {
+		return folhas;
+	}
+
+	public void setFolhas(int folhas) {
+		this.folhas = folhas;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -57,7 +66,7 @@ public class Impressora {
 	@Override
 	public String toString() {
 		return "Impressora [nome=" + nome + ", id=" + id + ", nvlCiano=" + nvlCiano + ", nvlMagenta=" + nvlMagenta
-				+ ", nvlAmarelo=" + nvlAmarelo + ", nvlPreto=" + nvlPreto + "]";
+				+ ", nvlAmarelo=" + nvlAmarelo + ", nvlPreto=" + nvlPreto + ", folhas=" + folhas + "]";
 	}
 	
 	

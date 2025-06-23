@@ -10,7 +10,6 @@ import apresentacao.ViewFornecedor;
 import apresentacao.ViewFornecimento;
 import apresentacao.ViewImpressora;
 import apresentacao.ViewMateriaPrima;
-import exceptions.AbastecimentoException;
 import exceptions.DeleteException;
 import modelos.Abastecimento;
 import modelos.Fornecedor;
@@ -160,7 +159,7 @@ public class Sistema {
 	}
 
 
-	public void criarAbastecimento() throws SQLException, AbastecimentoException {
+	public void criarAbastecimento() throws Exception {
 		verImpressoras();
 		verMateriasPrimas();
 		Abastecimento abs = vabs.criar();

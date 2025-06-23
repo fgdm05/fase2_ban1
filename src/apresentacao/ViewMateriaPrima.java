@@ -12,23 +12,28 @@ public class ViewMateriaPrima implements View<MateriaPrima> {
 	@Override
 	public MateriaPrima criar() {
 		MateriaPrima mp = new MateriaPrima();
+		
 		System.out.println("Nome da materia prima: ");
 		mp.setNome(sc.nextLine());
+		
 		System.out.println("Quantidade: ");
 		mp.setQuantidade(Integer.parseInt(sc.next()));
-		System.out.println("Digite 1, caso a materia prima possua volume ou 0, caso nao possua");
-		System.out.println("Ex de materia prima que possui volume: Tinta p/impressora");
-		int opt = sc.nextInt();
-		sc.nextLine();
-		switch(opt) {
-		case 1:
-			System.out.println("Digite o volume da materia prima: ");
-			sc.nextLine();
-			break;
-		default:
-			break;
+		
+		System.out.println("Tipo de materia prima");
+		System.out.println("F - folhas");
+		System.out.println("A - tinta amarela");
+		System.out.println("C - tinta ciano");
+		System.out.println("M - tinta magenta");
+		System.out.println("P - tinta preta");
+		
+		String tipo = sc.next().toLowerCase();
+		while(!(tipo.equals("f") || tipo.equals("a") || tipo.equals("c") || tipo.equals("m") || tipo.equals("p"))) {
+			tipo = sc.next().toLowerCase();
 		}
-		System.out.println("Materia prima " + mp + " criada com sucesso!");
+ 		mp.setTipoMateriaPrima(tipo);
+		sc.nextLine();
+		
+		System.out.println(mp + " criada com sucesso!");
 		return mp;
 	}
 	@Override

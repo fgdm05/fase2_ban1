@@ -31,13 +31,14 @@ public class ImpressoraDAO {
 		i.setId(createId());
 		PreparedStatement st;
 			st = con.prepareStatement("INSERT INTO impressoras (idImp, nome, nvlCiano, nvlMagenta, " +
-									 "nvlAmarelo, nvlPreto) VALUES (?,?,?,?,?,?)");
+									 "nvlAmarelo, nvlPreto, folhas) VALUES (?,?,?,?,?,?,?)");
 			st.setInt(1, i.getId());
 			st.setString(2, i.getNome());
 			st.setInt(3, i.getNvlCiano());
 			st.setInt(4, i.getNvlMagenta());
 			st.setInt(5, i.getNvlAmarelo());
 			st.setInt(6, i.getNvlPreto());
+			st.setInt(7, i.getFolhas());
 			st.execute();
 			st.close();
 	}
@@ -54,7 +55,8 @@ public class ImpressoraDAO {
 				int nvlMagenta = rs.getInt(4);
 				int nvlAmarelo = rs.getInt(5);
 				int nvlPreto = rs.getInt(6);
-				Impressora imp = new Impressora(id, nome, nvlCiano, nvlMagenta, nvlAmarelo, nvlPreto);
+				int folhas = rs.getInt(7);
+				Impressora imp = new Impressora(id, nome, nvlCiano, nvlMagenta, nvlAmarelo, nvlPreto, folhas);
 				imps.add(imp);
 			}
 			return imps;

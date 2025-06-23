@@ -64,7 +64,7 @@ public class FornecedorDAO {
 			st.execute();
 			
 		} catch(SQLException e) {
-			throw new DeleteException("", e);
+			throw new DeleteException("Não pode deletar fornecedor que tem pelo menos um fornecimento registrado!", e);
 		}
 	}
 }

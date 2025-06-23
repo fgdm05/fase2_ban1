@@ -51,10 +51,15 @@ public class AbastecimentoDAO {
 		return null;
 	}
 	
-	public void create(Abastecimento abs) throws SQLException, AbastecimentoException {
-		
-		String tipoAbs = checkAbastecimento(abs);
+	public void create(Abastecimento abs) throws Exception {
+		String tipoAbs;
+		try {
+		tipoAbs = checkAbastecimento(abs);
 		abs.setIdAbastecimento(createId());
+		} catch(NullPointerException e) {
+			throw new Exception("Id de materia prima inexistente!", e);
+		}
+		
 		String query = 
 			"INSERT INTO abastecimento "
 			+ "(idAbastecimento, idMateriaPrima, idImpressora, dataHora, quantidade) VALUES "

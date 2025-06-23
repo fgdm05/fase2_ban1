@@ -3,15 +3,23 @@ package modelos;
 public class MateriaPrima {
 	private int id, quantidade;
 	private String nome;
+	private String tipoMateriaPrima;
 	public MateriaPrima() {
 		// TODO Auto-generated constructor stub
 	}
-	public MateriaPrima(int id, String nome, int quantidade) {
+	public MateriaPrima(int id, String nome, int quantidade, String tipoMp) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.nome = nome;
+		tipoMateriaPrima = tipoMp;
 	}
 	
+	public String getTipoMateriaPrima() {
+		return tipoMateriaPrima;
+	}
+	public void setTipoMateriaPrima(String tipoMateriaPrima) {
+		this.tipoMateriaPrima = tipoMateriaPrima;
+	}
 	public int getId() {
 		return id;
 	}
