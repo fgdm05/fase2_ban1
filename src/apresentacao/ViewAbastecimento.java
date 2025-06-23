@@ -15,17 +15,20 @@ public class ViewAbastecimento implements View<Abastecimento> {
 	
 	@Override
 	public Abastecimento criar() {
-		throw new UnsupportedOperationException("Implementando");
-		/*
+		
 		Abastecimento abs = new Abastecimento();
 		System.out.println("Impressora (digite o id):");
-		abs.setIdMateriaPrima(sc.nextInt());
-		sc.nextLine();
-		System.out.println("Materia Prima (digite o id):");
 		abs.setIdImpressora(sc.nextInt());
 		sc.nextLine();
+		
+		System.out.println("Materia Prima (digite o id):");
+		abs.setIdMateriaPrima(sc.nextInt());
+		sc.nextLine();
+		
 		System.out.println("Quantidade: ");
 		abs.setQuantidade(sc.nextInt());
+		sc.nextLine();
+		
 		System.out.println("Data (DD/MM/AAAA): ");
 		String data = sc.next();
 		sc.nextLine();
@@ -38,7 +41,7 @@ public class ViewAbastecimento implements View<Abastecimento> {
 			e.printStackTrace();
 		}
 		return null;
-		*/
+		
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class AbastecimentoDAO {
 		try (var check = connection.prepareStatement(checkQuantidade);){
 			check.setInt(1, abs.getIdMateriaPrima());
 			ResultSet rs = check.executeQuery();
-			connection.commit();
+			
 			if(rs.next()) {
 				int disponivel = rs.getInt(1);
 				String nome = rs.getString(2);
