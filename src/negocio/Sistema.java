@@ -2,6 +2,7 @@ package negocio;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 import apresentacao.ViewAbastecimento;
@@ -163,5 +164,12 @@ public class Sistema {
 		verMateriasPrimas();
 		Abastecimento abs = vabs.criar();
 		abastecimentoDAO.create(abs);
+	}
+
+
+	public List<Abastecimento> verAbastecimentos() throws SQLException {
+		List<Abastecimento> list = abastecimentoDAO.select();
+		list.forEach(System.out::println);
+		return Collections.unmodifiableList(list);
 	}
 }

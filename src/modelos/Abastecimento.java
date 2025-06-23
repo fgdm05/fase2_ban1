@@ -1,6 +1,7 @@
 package modelos;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Abastecimento {
 	private int idAbastecimento, idImpressora, idMateriaPrima;
@@ -8,6 +9,23 @@ public class Abastecimento {
 	private int quantidade;
 	private Impressora impressora = null;
 	private MateriaPrima materiaPrima = null;
+	
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		
+		String format = String.format("Abastecimento: ["
+				+ "\n\tidAbastecimento: %d, "
+				+ "\n\tidImpressora: %d, "
+				+ "\n\tidMateriaPrima: %d, "
+				+ "\n\tquantidade: %d, "
+				+ "\n\tdata: %s\n]", 
+				idAbastecimento, idImpressora, idMateriaPrima,
+				quantidade, sdf.format(data));
+		
+		
+		return format;
+	}
 	
 	public Abastecimento() {}
 	

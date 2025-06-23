@@ -36,6 +36,7 @@ public class Program {
 				System.out.println("12 - Visualizar historico de fornecimento com fornecedores e materias primas");
 				System.out.println("13 - Excluir fornecimento");
 				System.out.println("14 - Criar abastecimento");
+				System.out.println("15 - Visualizar todos os abastecimentos");
 				System.out.println("0 - Sair");
 				do {escolha = sc.nextInt(); } while(escolha < 0);
 				sc.nextLine();
@@ -84,6 +85,9 @@ public class Program {
 					break;
 				case 14:
 					sys.criarAbastecimento();
+					break;
+				case 15:
+					sys.verAbastecimentos();
 					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);
