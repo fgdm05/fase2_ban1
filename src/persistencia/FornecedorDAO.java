@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.DeleteException;
 import modelos.Fornecedor;
 
 public class FornecedorDAO {
@@ -56,12 +57,14 @@ public class FornecedorDAO {
 			return fornecedores;
 	}
 	
-	public void remove(Fornecedor f) throws SQLException {
-		PreparedStatement st;
-			st = con.prepareStatement("DELETE FROM fornecedores WHERE idForn = ?");
-			// TODO: exclusão em fornecimentos tb
+	public void remove(Fornecedor f) throws DeleteException {
+		try (PreparedStatement
+				st = con.prepareStatement("DELETE FROM fornecedores WHERE idForn = ?")){
 			st.setInt(1, f.getId());
-			st.executeUpdate();
+			st.execute();
+			
+		} catch(SQLException e) {
+			throw new DeleteException("", e);
+		}
 	}
-
 }

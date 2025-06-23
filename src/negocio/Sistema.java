@@ -11,6 +11,7 @@ import apresentacao.ViewFornecimento;
 import apresentacao.ViewImpressora;
 import apresentacao.ViewMateriaPrima;
 import exceptions.AbastecimentoException;
+import exceptions.DeleteException;
 import modelos.Abastecimento;
 import modelos.Fornecedor;
 import modelos.Fornecimento;
@@ -65,7 +66,7 @@ public class Sistema {
 		return imps;
 	}
 	
-	public void deletarImpressora() throws SQLException {
+	public void deletarImpressora() throws SQLException, DeleteException {
 		List<Impressora> imps = verImpressoras();
 		int escolha = vi.deletar();
 		for( Impressora i : imps ) {
@@ -76,7 +77,7 @@ public class Sistema {
 				return;
 			}
 		}
-		System.out.println("Id escolhido nao existe");
+		throw new DeleteException("Id escolhido não existe");
 	}
 	
 	public void criarMateriaPrima() throws SQLException {
@@ -89,7 +90,7 @@ public class Sistema {
 		return mps;
 	}
 	
-	public void deletarMateriaPrima( ) throws SQLException {
+	public void deletarMateriaPrima( ) throws SQLException, DeleteException {
 		List<MateriaPrima> mps = verMateriasPrimas();
 		int escolha = vmp.deletar();
 		for( MateriaPrima mp : mps ) {
@@ -100,7 +101,7 @@ public class Sistema {
 				return;
 			}
 		}
-		System.out.println("Id escolhido não existe");
+		throw new DeleteException("Id escolhido não existe");
 	}
 	
 	public void criarFornecedor() throws SQLException {
@@ -113,7 +114,7 @@ public class Sistema {
 		return fornecedores;
 	}
 	
-	public void deletarFornecedor( ) throws SQLException {
+	public void deletarFornecedor( ) throws SQLException, DeleteException {
 		List<Fornecedor> fornecedores = verFornecedores();
 		int escolha = vf.deletar();
 		for( Fornecedor f : fornecedores ) {
@@ -124,7 +125,7 @@ public class Sistema {
 				return;
 			}
 		}
-		System.out.println("Id escolhido não existe");
+		throw new DeleteException("Id escolhido não existe");
 	}
 	
 	public void criarFornecimento() throws SQLException {
@@ -144,7 +145,7 @@ public class Sistema {
 		fcms.forEach(System.out::println);
 	}
 	
-	public void deletarFornecimento() throws SQLException {
+	public void deletarFornecimento() throws SQLException, DeleteException {
 		List<Fornecimento> fcms = verFornecimentos();
 		int escolha = vfcm.deletar();
 		for( Fornecimento f : fcms ) {
@@ -155,7 +156,7 @@ public class Sistema {
 				return;
 			}
 		}
-		System.out.println("Id escolhido não existe");
+		throw new DeleteException("Id escolhido não existe");
 	}
 
 
