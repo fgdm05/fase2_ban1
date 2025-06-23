@@ -127,10 +127,30 @@ public class Sistema {
 		throw new DeleteException("Id escolhido não existe");
 	}
 	
-	public void criarFornecimento() throws SQLException {
-		verFornecedores();
-		verMateriasPrimas();
-		fornecimentoDAO.create(vfcm.criar());
+	public void criarFornecimento() throws Exception {
+		List<Fornecedor> forns = verFornecedores();
+		List<MateriaPrima> mps = verMateriasPrimas();
+		Fornecimento criar = vfcm.criar();
+		
+		int i = 0;
+		for(; i < forns.size(); i++) {
+			if(criar.getIdFornecedor() == forns.get(i).getId()) {
+				break;
+			}
+		}
+		if(i == forns.size()) { throw new Exception(String.format("Não existe fornecedor com id %d", criar.getIdFornecedor()));}
+		
+		i = 0;
+		for(; i < mps.size(); i++) {
+			if(criar.getIdMateriaPrima() ==  mps.get(i).getId()) {
+				break;
+			}
+		}
+		if(i == mps.size()) {throw new Exception(String.format("Nao existe materia prima com id %d", criar.getIdMateriaPrima()));}
+		
+		
+		
+		fornecimentoDAO.create(criar);
 	}
 	
 	public List<Fornecimento> verFornecimentos() throws SQLException {
@@ -160,9 +180,26 @@ public class Sistema {
 
 
 	public void criarAbastecimento() throws Exception {
-		verImpressoras();
-		verMateriasPrimas();
+		List<Impressora> imps = verImpressoras();
+		List<MateriaPrima> mps = verMateriasPrimas();
 		Abastecimento abs = vabs.criar();
+		int i = 0;
+		for(; i < imps.size(); i++) {
+			if(abs.getIdImpressora() == imps.get(i).getId()) {
+				break;
+			}
+		}
+		if(i == imps.size()) { throw new Exception(String.format("Não existe impressora com id %d", abs.getIdImpressora()));}
+		
+		i = 0;
+		for(; i < mps.size(); i++) {
+			if(abs.getIdMateriaPrima() ==  mps.get(i).getId()) {
+				break;
+			}
+		}
+		if(i == mps.size()) {throw new Exception(String.format("Nao existe materia prima com id %d", abs.getIdMateriaPrima()));}
+		
+		
 		abastecimentoDAO.create(abs);
 	}
 
