@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import apresentacao.ViewAbastecimento;
 import apresentacao.ViewFornecedor;
 import apresentacao.ViewFornecimento;
 import apresentacao.ViewImpressora;
 import apresentacao.ViewMateriaPrima;
+import exceptions.AbastecimentoException;
+import modelos.Abastecimento;
 import modelos.Fornecedor;
 import modelos.Fornecimento;
 import modelos.Impressora;
@@ -20,10 +23,13 @@ import persistencia.MateriaPrimaDAO;
 
 public class Sistema {
 	private static Connection con = null;
+	
 	private static ViewImpressora vi = null;
 	private static ViewMateriaPrima vmp = null;
 	private static ViewFornecedor vf = null;
 	private static ViewFornecimento vfcm = null;
+	private static ViewAbastecimento vabs = null;
+	
 	private static ImpressoraDAO impressoraDAO = null;
 	private static FornecedorDAO fornecedorDAO = null;
 	private static MateriaPrimaDAO materiaPrimaDAO = null;
@@ -38,6 +44,7 @@ public class Sistema {
 		vmp = new ViewMateriaPrima();
 		vf = new ViewFornecedor();
 		vfcm = new ViewFornecimento();
+		vabs = new ViewAbastecimento();
 
 		impressoraDAO = new ImpressoraDAO(con);
 		fornecedorDAO = new FornecedorDAO(con);
@@ -148,5 +155,13 @@ public class Sistema {
 			}
 		}
 		System.out.println("Id escolhido não existe");
+	}
+
+
+	public void criarAbastecimento() throws SQLException, AbastecimentoException {
+		verImpressoras();
+		verMateriasPrimas();
+		Abastecimento abs = vabs.criar();
+		abastecimentoDAO.create(abs);
 	}
 }

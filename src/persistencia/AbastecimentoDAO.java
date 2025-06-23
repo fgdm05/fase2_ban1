@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.AbastecimentoException;
+import exceptions.TipoAbastecimentoException;
 import modelos.Abastecimento;
 
 public class AbastecimentoDAO {
@@ -26,7 +27,7 @@ public class AbastecimentoDAO {
 	}
 	private String checkAbastecimento(Abastecimento abs) throws SQLException, AbastecimentoException {
 		String checkQuantidade = 
-				"SELECT quantidade, nome "
+				"SELECT quantidade, tipoAbs, nome "
 				+ "FROM materiasprimas "
 				+ "WHERE idMp = ?";
 		try (var check = connection.prepareStatement(checkQuantidade);){
@@ -35,7 +36,8 @@ public class AbastecimentoDAO {
 			
 			if(rs.next()) {
 				int disponivel = rs.getInt(1);
-				String nome = rs.getString(2);
+				String tipoAbs = rs.getString(2);
+				String nome = rs.getString(3);
 				if(disponivel < abs.getQuantidade()) {
 					
 					String msg = String.format(
@@ -43,7 +45,7 @@ public class AbastecimentoDAO {
 					+ "que contém apenas %d, abortando operação!", abs.getQuantidade(), nome, disponivel);
 					throw new AbastecimentoException(msg);
 				}
-				return nome;
+				return tipoAbs;
 			}
 		}
 		return null;
@@ -51,7 +53,7 @@ public class AbastecimentoDAO {
 	
 	public void create(Abastecimento abs) throws SQLException, AbastecimentoException {
 		
-		String campo = checkAbastecimento(abs);
+		String tipoAbs = checkAbastecimento(abs);
 		abs.setIdAbastecimento(createId());
 		String query = 
 			"INSERT INTO abastecimento "
@@ -63,10 +65,14 @@ public class AbastecimentoDAO {
 			+ "SET quantidade = quantidade - ? "
 			+ "WHERE idMp = ?";
 		
+		String campo = getCampo(tipoAbs);
+		
+		System.out.println(campo);
 		String qUpdateImp = 
-			"UPDATE impressoras " + String.format(
-			"SET %s = %s + ?", campo, campo) 
+			"UPDATE impressoras " + 
+			"SET " + campo + " = " + campo + " + ? "
 			+ "WHERE idImp = ?";
+		System.out.println(qUpdateImp);
 		connection.setAutoCommit(false);
 		try (
 			var insert = connection.prepareStatement(query);
@@ -96,6 +102,22 @@ public class AbastecimentoDAO {
 		}
 	}
 
+	private String getCampo(String tipoAbs) throws TipoAbastecimentoException {
+		switch(tipoAbs) {
+			case "c":
+				return "nvlciano";
+			case "a":
+				return "nvlamarelo";
+			case "m":
+				return "nvlmagenta";
+			case "p":
+				return "nvlpreto";
+			case "f":
+				return "folhas";
+			default:
+				throw new TipoAbastecimentoException("Tipo inexistente!");
+		}
+	}
 	public List<Abastecimento> select() throws SQLException {
 		String query = "SELECT * FROM abastecimento";
 		try (var select = connection.prepareStatement(query)){

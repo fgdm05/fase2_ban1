@@ -22,14 +22,10 @@ public class ViewMateriaPrima implements View<MateriaPrima> {
 		sc.nextLine();
 		switch(opt) {
 		case 1:
-			mp.setVol(true);
 			System.out.println("Digite o volume da materia prima: ");
-			mp.setVolume(sc.nextInt());
 			sc.nextLine();
 			break;
 		default:
-			mp.setVol(false);
-			mp.setVolume(-1);
 			break;
 		}
 		System.out.println("Materia prima " + mp + " criada com sucesso!");

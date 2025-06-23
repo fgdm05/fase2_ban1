@@ -77,8 +77,7 @@ public class FornecimentoDAO {
 				Fornecimento fcm = new Fornecimento(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getInt(4), 
 						rs.getInt(8));
 				Fornecedor f = new Fornecedor(rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
-				MateriaPrima mp = new MateriaPrima(rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getInt(11),
-						rs.getBoolean(12));
+				MateriaPrima mp = new MateriaPrima(rs.getInt(8), rs.getString(9), rs.getInt(10));
 				fcm.setFornecedor(f);
 				fcm.setMateriaPrima(mp);
 				fcms.add(fcm);

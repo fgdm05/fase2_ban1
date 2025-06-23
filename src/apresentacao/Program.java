@@ -35,8 +35,9 @@ public class Program {
 				System.out.println("11 - Visualizar historico de fornecimento");
 				System.out.println("12 - Visualizar historico de fornecimento com fornecedores e materias primas");
 				System.out.println("13 - Excluir fornecimento");
+				System.out.println("14 - Criar abastecimento");
 				System.out.println("0 - Sair");
-				do {escolha = sc.nextInt(); } while(escolha < 0 || escolha > 13);
+				do {escolha = sc.nextInt(); } while(escolha < 0);
 				sc.nextLine();
 				
 				switch(escolha) {
@@ -81,12 +82,16 @@ public class Program {
 				case 13:
 					sys.deletarFornecimento();
 					break;
+				case 14:
+					sys.criarAbastecimento();
+					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);
 				}
 			}
 		} catch(Throwable t) {
 			System.err.println(t.getMessage());
+			t.printStackTrace();
 		}
 		
 		System.out.println("Terminando programa...");

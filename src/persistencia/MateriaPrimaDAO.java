@@ -35,8 +35,6 @@ public class MateriaPrimaDAO {
 			st.setInt(1, mp.getId());
 			st.setString(2, mp.getNome());
 			st.setInt(3, mp.getQuantidade());
-			st.setInt(4, mp.getVolume());
-			st.setBoolean(5, mp.isVol());
 			st.execute();
 			st.close();
 	}
@@ -50,9 +48,7 @@ public class MateriaPrimaDAO {
 				int id = rs.getInt(1);
 				String nome = rs.getString(2);
 				int quantidade = rs.getInt(3);
-				int volume = rs.getInt(4);
-				boolean vol = rs.getBoolean(5);
-				MateriaPrima mp = new MateriaPrima(id, nome, quantidade, volume, vol);
+				MateriaPrima mp = new MateriaPrima(id, nome, quantidade);
 				mps.add(mp);
 			}
 			return mps;
