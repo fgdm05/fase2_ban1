@@ -13,6 +13,13 @@ public class Program {
 	static Sistema sys = null;
 	static Connection con = null;
 	
+	private static void pausaTela() {
+		System.out.println("Aperte enter para continuar... ");
+		sc.nextLine();
+	}
+
+	
+	
 	public static void main(String[] args) throws SQLException {
 		System.out.println("Começando programa...");
 	
@@ -37,6 +44,7 @@ public class Program {
 				System.out.println("13 - Excluir fornecimento");
 				System.out.println("14 - Criar abastecimento");
 				System.out.println("15 - Visualizar todos os abastecimentos");
+				System.out.println("16 - Deletar abastecimento");
 				System.out.println("0 - Sair");
 				do {escolha = sc.nextInt(); } while(escolha < 0);
 				sc.nextLine();
@@ -89,9 +97,13 @@ public class Program {
 				case 15:
 					sys.verAbastecimentos();
 					break;
+				case 16:
+					sys.deletarAbastecimento();
+					break;
 				default:
 						throw new RuntimeException("Não existe a opção " + escolha);
 				}
+				pausaTela();
 			}
 		} catch(Throwable t) {
 			System.err.println(t.getMessage());

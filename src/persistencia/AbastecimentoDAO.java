@@ -134,4 +134,13 @@ public class AbastecimentoDAO {
 			return l_abs;
 		}
 	}
+	
+	public boolean delete(Abastecimento abs) throws SQLException {
+		String query = "DELETE FROM abastecimento WHERE idAbastecimento = ?";
+		try(var ps = connection.prepareStatement(query)) {
+			ps.setInt(1, abs.getIdAbastecimento());
+			return ps.execute();
+		}
+	}
+	
 }

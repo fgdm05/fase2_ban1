@@ -46,7 +46,12 @@ public class ViewAbastecimento implements View<Abastecimento> {
 
 	@Override
 	public int deletar() {
-		throw new UnsupportedOperationException("Função ainda não implementada!");
+		System.out.println("Escolha o id do abastecimento a ser removido: ");
+		int id = sc.nextInt();
+		sc.nextLine();
+		return id;
+		
+		
 	}
 
 }

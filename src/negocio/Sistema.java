@@ -171,6 +171,21 @@ public class Sistema {
 	public List<Abastecimento> verAbastecimentos() throws SQLException {
 		List<Abastecimento> list = abastecimentoDAO.select();
 		list.forEach(System.out::println);
-		return Collections.unmodifiableList(list);
+		return list;
+	}
+
+
+	public void deletarAbastecimento() throws SQLException, DeleteException {
+		List<Abastecimento> list = verAbastecimentos();
+		int deletar = vabs.deletar();
+		for( Abastecimento abs : list ) {
+			if( abs.getIdAbastecimento() == deletar ) {
+				list.remove(abs);
+				abastecimentoDAO.delete(abs);
+				System.out.println(abs + " removido");
+				return;
+			}
+		}
+		throw new DeleteException("Id escolhido nao existe");
 	}
 }
