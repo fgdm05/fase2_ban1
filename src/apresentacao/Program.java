@@ -98,6 +98,7 @@ public class Program {
 		System.out.println("15 - Visualizar todos os abastecimentos");
 		System.out.println("16 - Deletar abastecimento");
 		System.out.println("17 - Visualizar todos os abastecimentos com impressoras e materias primas");
+		System.out.println("18 - Visualizar a maior quantidade abastecida na data mais recente");
 		System.out.println("0 - Sair");
 	}
 	
