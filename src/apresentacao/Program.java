@@ -69,6 +69,12 @@ public class Program {
 		case 16:
 			sys.deletarAbastecimento();
 			break;
+		case 17:
+			sys.verAbastecimentosCompleto();
+			break;
+		case 18:
+			sys.verAbastecimentosAgregacao();
+			break;
 		default:
 				throw new RuntimeException("Não existe a opção " + escolha);
 		}
@@ -91,6 +97,7 @@ public class Program {
 		System.out.println("14 - Criar abastecimento");
 		System.out.println("15 - Visualizar todos os abastecimentos");
 		System.out.println("16 - Deletar abastecimento");
+		System.out.println("17 - Visualizar todos os abastecimentos com impressoras e materias primas");
 		System.out.println("0 - Sair");
 	}
 	

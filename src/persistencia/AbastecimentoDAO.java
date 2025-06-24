@@ -10,6 +10,8 @@ import java.util.List;
 import exceptions.AbastecimentoException;
 import exceptions.TipoAbastecimentoException;
 import modelos.Abastecimento;
+import modelos.Impressora;
+import modelos.MateriaPrima;
 
 public class AbastecimentoDAO {
 	private Connection connection = null;
@@ -145,6 +147,54 @@ public class AbastecimentoDAO {
 		try(var ps = connection.prepareStatement(query)) {
 			ps.setInt(1, abs.getIdAbastecimento());
 			return ps.execute();
+		}
+	}
+	
+	
+	
+	public List<Abastecimento> selectAll() throws SQLException {
+		List<Abastecimento> list = new ArrayList<>();
+		
+		String query = "SELECT "
+				+ "abs.idAbastecimento, "
+				+ "abs.quantidade, "
+				+ "abs.dataHora, "
+				+ "imp.*, "
+				+ "mp.* "
+				+ "FROM abastecimento abs "
+				+ "JOIN impressoras imp ON imp.idimp = abs.idImpressora "
+				+ "JOIN materiasprimas mp ON mp.idmp = abs.idMateriaPrima";
+		System.out.println(query);
+		try (var st = connection.prepareStatement(query)){
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				var abs = new Abastecimento(rs.getInt(1), rs.getInt("idImp"), rs.getInt("idMp"), rs.getDate(3), rs.getInt(2));
+				var impr = new Impressora(
+						rs.getInt("idimp"), 
+						rs.getString("nome"), 
+						rs.getInt("nvlciano"), 
+						rs.getInt("nvlmagenta"), 
+						rs.getInt("nvlamarelo"), 
+						rs.getInt("nvlpreto"), 
+						rs.getInt("folhas"));
+				abs.setImpressora(impr);
+				var mp = new MateriaPrima(rs.getInt("idmp"), rs.getString("nome"), rs.getInt("quantidade"), rs.getString("tipoAbs"));
+				abs.setMateriaPrima(mp);
+				list.add(abs);
+			}
+			return list;
+		}
+	}
+	
+	public int selectAgregacao() throws SQLException {
+		String query = "SELECT max(quantidade) FROM abastecimento "
+				+ "WHERE dataHora >= ALL(SELECT dataHora FROM abastecimento)";
+		
+		try (var ps = connection.prepareStatement(query)) {
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+			
 		}
 	}
 	

@@ -224,4 +224,18 @@ public class Sistema {
 		}
 		throw new DeleteException("Id escolhido nao existe");
 	}
+
+
+	public List<Abastecimento> verAbastecimentosCompleto() throws SQLException {
+		List<Abastecimento> selectAll = abastecimentoDAO.selectAll();
+		selectAll.forEach(System.out::println);
+		return selectAll;
+	}
+
+
+	public void verAbastecimentosAgregacao() throws SQLException {
+		var valor = abastecimentoDAO.selectAgregacao();
+		System.out.println("A maior quantidade abastecida na data mais recente é " + valor);
+		
+	}
 }
