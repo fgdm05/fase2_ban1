@@ -1,26 +1,31 @@
 package modelos;
 
-import java.util.Date;
+import java.sql.Time;
 
 public class Fornecimento {
 	private int id, quantidade, idFornecedor, idMateriaPrima;
 	private java.sql.Date dataHoraForn;
 	private Fornecedor fornecedor = null;
 	private MateriaPrima materiaPrima = null;
+	private Time time;
 	public Fornecimento() {
 
 	}
-	public Fornecimento(int id, int quantidade, java.sql.Date dataHoraForn, int idFornecedor, int idMateriaPrima) {
+	public Fornecimento(int id, int quantidade, java.sql.Date dataHoraForn, int idFornecedor, int idMateriaPrima, Time time) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.idFornecedor = idFornecedor;
 		this.idMateriaPrima = idMateriaPrima;
 		this.dataHoraForn = dataHoraForn;
+		this.time = time;
 	}
 	
 	public void convertData(java.util.Date data) {
 		dataHoraForn = new java.sql.Date(data.getTime());
+	}
+	public Time getTime() {
+		return time;
 	}
 	public int getId() {
 		return id;
@@ -69,10 +74,13 @@ public class Fornecimento {
 	public String toString() {
 		if( fornecedor != null && materiaPrima != null ) {
 			return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", " + fornecedor
-					+ ", " + materiaPrima + ", dataHoraForn=" + dataHoraForn + "]";
+					+ ", " + materiaPrima + ", dataHoraForn=" + dataHoraForn + "hora=" + time + "]";
 		}
 		return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", idFornecedor=" + idFornecedor
-				+ ", idMateriaPrima=" + idMateriaPrima + ", dataHoraForn=" + dataHoraForn + "]";
+				+ ", idMateriaPrima=" + idMateriaPrima + ", dataHoraForn=" + dataHoraForn + "hora=" + time + "]";
+	}
+	public void setTime(Time time) {
+		this.time=time;
 	}
 	
 	

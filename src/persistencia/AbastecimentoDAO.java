@@ -64,8 +64,8 @@ public class AbastecimentoDAO {
 		
 		String query = 
 			"INSERT INTO abastecimento "
-			+ "(idAbastecimento, idMateriaPrima, idImpressora, dataHora, quantidade) VALUES "
-			+ "(?, ?, ?, ?, ?)";
+			+ "(idAbastecimento, idMateriaPrima, idImpressora, dataHora, quantidade, hora) VALUES "
+			+ "(?, ?, ?, ?, ?, ?)";
 		
 		String queryUpdate = 
 			"UPDATE materiasprimas "
@@ -92,6 +92,7 @@ public class AbastecimentoDAO {
 			insert.setInt(3, abs.getIdImpressora());
 			insert.setDate(4, abs.getData());
 			insert.setInt(5, abs.getQuantidade());
+			insert.setTime(6, abs.getTime());
 			
 			update.setInt(1, abs.getQuantidade());
 			update.setInt(2, abs.getIdMateriaPrima());
@@ -136,7 +137,8 @@ public class AbastecimentoDAO {
 						rs.getInt("idImpressora"), 
 						rs.getInt("idMateriaPrima"), 
 						rs.getDate("dataHora"), 
-						rs.getInt("quantidade")));
+						rs.getInt("quantidade"),
+						rs.getTime("hora")));
 			}
 			return l_abs;
 		}
@@ -168,7 +170,7 @@ public class AbastecimentoDAO {
 		try (var st = connection.prepareStatement(query)){
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				var abs = new Abastecimento(rs.getInt(1), rs.getInt("idImp"), rs.getInt("idMp"), rs.getDate(3), rs.getInt(2));
+				var abs = new Abastecimento(rs.getInt(1), rs.getInt("idImp"), rs.getInt("idMp"), rs.getDate(3), rs.getInt(2), rs.getTime("hora"));
 				var impr = new Impressora(
 						rs.getInt("idimp"), 
 						rs.getString("nome"), 

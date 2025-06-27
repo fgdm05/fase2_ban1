@@ -1,6 +1,7 @@
 package modelos;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 public class Abastecimento {
@@ -9,6 +10,7 @@ public class Abastecimento {
 	private int quantidade;
 	private Impressora impressora = null;
 	private MateriaPrima materiaPrima = null;
+	private Time time;
 	
 	@Override
 	public String toString() {
@@ -19,9 +21,10 @@ public class Abastecimento {
 				+ "\n\tidImpressora: %d, "
 				+ "\n\tidMateriaPrima: %d, "
 				+ "\n\tquantidade: %d, "
-				+ "\n\tdata: %s\n]", 
+				+ "\n\tdata: %s"
+				+ "\n\thora: %s]", 
 				idAbastecimento, idImpressora, idMateriaPrima,
-				quantidade, sdf.format(data));
+				quantidade, sdf.format(data), time);
 		
 		
 		return format;
@@ -29,15 +32,20 @@ public class Abastecimento {
 	
 	public Abastecimento() {}
 	
-	public Abastecimento(int idAbastecimento, int idImpressora, int idMateriaPrima, Date data, int quantidade) {
+	public Abastecimento(int idAbastecimento, int idImpressora, int idMateriaPrima, Date data, int quantidade, java.sql.Time time) {
 		super();
 		this.idAbastecimento = idAbastecimento;
 		this.idImpressora = idImpressora;
 		this.idMateriaPrima = idMateriaPrima;
 		this.data = data;
 		this.quantidade = quantidade;
+		this.time = time;
 	}
 
+	public Time getTime() {
+		return time;
+	}
+	
 	public int getIdAbastecimento() {
 		return idAbastecimento;
 	}
@@ -92,6 +100,10 @@ public class Abastecimento {
 
 	public void setMateriaPrima(MateriaPrima materiaPrima) {
 		this.materiaPrima = materiaPrima;
+	}
+
+	public void setTime(Time time) {
+		this.time = time;
 	}
 	
 	

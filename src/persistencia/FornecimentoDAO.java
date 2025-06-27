@@ -34,12 +34,13 @@ public class FornecimentoDAO {
 		f.setId(createId());
 		PreparedStatement inserir;
 			inserir = con.prepareStatement("INSERT INTO fornecimentos (idFcm, quantidade, dataHora, idForn, " +
-										  "idMp) VALUES (?,?,?,?,?)");
+										  "idMp, hora) VALUES (?,?,?,?,?,?)");
 			inserir.setInt(1, f.getId());
 			inserir.setInt(2, f.getQuantidade());
 			inserir.setDate(3, f.getDataHoraForn());
 			inserir.setInt(4, f.getIdFornecedor());
 			inserir.setInt(5, f.getIdMateriaPrima());
+			inserir.setTime(6, f.getTime());
 			inserir.execute();
 			inserir.close();
 		PreparedStatement aumentaQtd;
@@ -61,7 +62,8 @@ public class FornecimentoDAO {
 				java.sql.Date data = rs.getDate(3);
 				int idForn = rs.getInt(4);
 				int idMp = rs.getInt(5);
-				Fornecimento f = new Fornecimento(id, quantidade, data, idForn, idMp);
+				java.sql.Time time = rs.getTime(6);
+				Fornecimento f = new Fornecimento(id, quantidade, data, idForn, idMp, time);
 				fcms.add(f);
 			}
 		return fcms;
@@ -70,14 +72,14 @@ public class FornecimentoDAO {
 	public List<Fornecimento> selectAllWithMpForn() throws SQLException {
 		List<Fornecimento> fcms = new ArrayList<Fornecimento>();
 		PreparedStatement st;
-			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, dataHora, f.*, mp.* FROM fornecimentos fcm "
+			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, dataHora, hora, f.*, mp.* FROM fornecimentos fcm "
 					+ "JOIN fornecedores f ON fcm.idForn = f.idForn JOIN materiasPrimas mp ON fcm.idMp = mp.idMp");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				Fornecimento fcm = new Fornecimento(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getInt(4), 
-						rs.getInt(8));
-				Fornecedor f = new Fornecedor(rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
-				MateriaPrima mp = new MateriaPrima(rs.getInt(8), rs.getString(9), rs.getInt(10), rs.getString(11));
+				Fornecimento fcm = new Fornecimento(rs.getInt("idFcm"), rs.getInt("fcm.quantidade"), rs.getDate("fcm.dataHora"), rs.getInt("f.idForn"), 
+						rs.getInt("mp.idmp"), rs.getTime("hora"));
+				Fornecedor f = new Fornecedor(rs.getInt("f.idForn"), rs.getString("f.nome"), rs.getString("f.cnpj"), rs.getString("f.razaoSocial"));
+				MateriaPrima mp = new MateriaPrima(rs.getInt("mp.idmp"), rs.getString("mp.nome"), rs.getInt("mp.quantidade"), rs.getString("mp.tipoabs"));
 				fcm.setFornecedor(f);
 				fcm.setMateriaPrima(mp);
 				fcms.add(fcm);
