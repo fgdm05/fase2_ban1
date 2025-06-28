@@ -183,7 +183,7 @@ public class Program {
 	}
 	private static void menuAbs() {
 		System.out.println("4 - Visualizar abastecimentos junto com a impressora e a materia prima");
-		System.out.println("5 - Visualizar a maior quantidade abastecida na data mais recente");
+		System.out.println("5 - Visualizar abastecimentos do dia mais recente, ordenados pelo horário de abastecimento");
 	}
 	
 	

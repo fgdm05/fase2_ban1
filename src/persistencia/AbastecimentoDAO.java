@@ -189,14 +189,22 @@ public class AbastecimentoDAO {
 		}
 	}
 	
-	public int selectAgregacao() throws SQLException {
-		String query = "SELECT max(quantidade) FROM abastecimento "
-				+ "WHERE dataHora >= ALL(SELECT dataHora FROM abastecimento)";
+	public List<Abastecimento> selectAgregacao() throws SQLException {
+		String query = "SELECT * FROM abastecimento "
+				+ "WHERE dataHora >= ALL(SELECT dataHora FROM abastecimento)"
+				+ "ORDER BY hora DESC";
 		
 		try (var ps = connection.prepareStatement(query)) {
 			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getInt(1);
+			List<Abastecimento> labs = new ArrayList<>();
+			while(rs.next()) {
+				labs.add(new Abastecimento(
+						rs.getInt("idAbastecimento"), 
+						rs.getInt("idImpressora"), 
+						rs.getInt("idMateriaPrima"), rs.getDate("dataHora"), rs.getInt("quantidade"), rs.getTime("hora")));
+			}
+			
+			return labs;
 			
 		}
 	}
