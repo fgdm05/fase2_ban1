@@ -161,6 +161,7 @@ public class AbastecimentoDAO {
 				+ "abs.idAbastecimento, "
 				+ "abs.quantidade, "
 				+ "abs.dataHora, "
+				+ "hora, "
 				+ "imp.*, "
 				+ "mp.* "
 				+ "FROM abastecimento abs "

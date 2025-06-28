@@ -76,10 +76,10 @@ public class FornecimentoDAO {
 					+ "JOIN fornecedores f ON fcm.idForn = f.idForn JOIN materiasPrimas mp ON fcm.idMp = mp.idMp");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				Fornecimento fcm = new Fornecimento(rs.getInt("idFcm"), rs.getInt("fcm.quantidade"), rs.getDate("fcm.dataHora"), rs.getInt("f.idForn"), 
-						rs.getInt("mp.idmp"), rs.getTime("hora"));
-				Fornecedor f = new Fornecedor(rs.getInt("f.idForn"), rs.getString("f.nome"), rs.getString("f.cnpj"), rs.getString("f.razaoSocial"));
-				MateriaPrima mp = new MateriaPrima(rs.getInt("mp.idmp"), rs.getString("mp.nome"), rs.getInt("mp.quantidade"), rs.getString("mp.tipoabs"));
+				Fornecimento fcm = new Fornecimento(rs.getInt("idFcm"), rs.getInt(2), rs.getDate(3), rs.getInt(5), 
+						rs.getInt(9), rs.getTime("hora"));
+				Fornecedor f = new Fornecedor(rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8));
+				MateriaPrima mp = new MateriaPrima(rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12));
 				fcm.setFornecedor(f);
 				fcm.setMateriaPrima(mp);
 				fcms.add(fcm);
