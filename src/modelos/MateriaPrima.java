@@ -4,9 +4,7 @@ public class MateriaPrima {
 	private int id, quantidade;
 	private String nome;
 	private String tipoMateriaPrima;
-	public MateriaPrima() {
-		// TODO Auto-generated constructor stub
-	}
+	public MateriaPrima() {}
 	public MateriaPrima(int id, String nome, int quantidade, String tipoMp) {
 		this.id = id;
 		this.quantidade = quantidade;
@@ -40,6 +38,12 @@ public class MateriaPrima {
 	}
 	@Override
 	public String toString() {	
-			return "MateriaPrima [id=" + id + ", quantidade=" + quantidade + ", nome=" + nome + "]";
+		String format = String.format("MateriaPrima"
+				+ "\n\tid: %d" 
+				+ "\n\tnome: %s"
+				+ "\n\tquantidade: %s"
+				+ "\n\ttipoAbastecimento: %s"
+				, id,nome,quantidade, tipoMateriaPrima);
+		return format;
 	}
 }

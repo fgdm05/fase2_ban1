@@ -65,8 +65,17 @@ public class Impressora {
 
 	@Override
 	public String toString() {
-		return "Impressora [nome=" + nome + ", id=" + id + ", nvlCiano=" + nvlCiano + ", nvlMagenta=" + nvlMagenta
-				+ ", nvlAmarelo=" + nvlAmarelo + ", nvlPreto=" + nvlPreto + ", folhas=" + folhas + "]";
+		String format = String.format(
+				"Impressora "
+				+ "\n\tid: %d"
+				+ "\n\tnome: %s"
+				+ "\n\tnvlCiano: %d"
+				+ "\n\tnvlMagenta: %d"
+				+ "\n\tnvlAmarelo: %d"
+				+ "\n\tnvlPreto: %d"
+				+ "\n\tfolhas: %d"
+				, id,nome,nvlCiano,nvlMagenta,nvlAmarelo,nvlPreto,folhas);
+		return format;
 	}
 	
 	

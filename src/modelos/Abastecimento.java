@@ -16,15 +16,21 @@ public class Abastecimento {
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		
-		String format = String.format("Abastecimento: ["
+		String format = String.format("Abastecimento:"
 				+ "\n\tidAbastecimento: %d, "
 				+ "\n\tidImpressora: %d, "
 				+ "\n\tidMateriaPrima: %d, "
 				+ "\n\tquantidade: %d, "
 				+ "\n\tdata: %s"
-				+ "\n\thora: %s]", 
+				+ "\n\thora: %s", 
 				idAbastecimento, idImpressora, idMateriaPrima,
 				quantidade, sdf.format(data), time);
+		
+		if(impressora != null && materiaPrima != null) {
+			format += String.format(
+					"\n\tImpressora: %s"
+					+ "\n\tMateriaPrima: %s", impressora, materiaPrima);
+		}
 		
 		
 		return format;

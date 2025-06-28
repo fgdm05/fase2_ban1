@@ -43,7 +43,13 @@ public class Fornecedor {
 
 	@Override
 	public String toString() {
-		return "Fornecedor [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", razaoSocial=" + razaoSocial + "]";
+		String format = String.format("Fornecedor"
+				+ "\n\tid: %d"
+				+ "\n\tnome: %s"
+				+ "\n\tcnpj: %s"
+				+ "\n\trazaoSocial: %s"
+				, id, nome, cnpj, razaoSocial);
+		return format;
 	}
 	
 	

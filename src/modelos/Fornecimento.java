@@ -72,12 +72,21 @@ public class Fornecimento {
 	}
 	@Override
 	public String toString() {
+		String format = String.format("Fornecimento"
+				+ "\n\tid: %d"
+				+ "\n\tquantidade: %d"
+				+ "\n\tdata: %s,"
+				+ "\n\thora: %s"
+				, id, quantidade, dataHoraForn, time);
+		
+		
 		if( fornecedor != null && materiaPrima != null ) {
-			return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", " + fornecedor
-					+ ", " + materiaPrima + ", dataHoraForn=" + dataHoraForn + "hora=" + time + "]";
+			format += String.format(
+					"\n\tfornecedor: %s" +
+					"\n\tmateriaprima: %s"
+					, fornecedor, materiaPrima);
 		}
-		return "Fornecimento [id=" + id + ", quantidade=" + quantidade + ", idFornecedor=" + idFornecedor
-				+ ", idMateriaPrima=" + idMateriaPrima + ", dataHoraForn=" + dataHoraForn + "hora=" + time + "]";
+		return format;
 	}
 	public void setTime(Time time) {
 		this.time=time;

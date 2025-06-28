@@ -74,12 +74,12 @@ public class AbastecimentoDAO {
 		
 		String campo = getCampo(tipoAbs);
 		
-		System.out.println(campo);
+		
 		String qUpdateImp = 
 			"UPDATE impressoras " + 
 			"SET " + campo + " = " + campo + " + ? "
 			+ "WHERE idImp = ?";
-		System.out.println(qUpdateImp);
+		
 		connection.setAutoCommit(false);
 		try (
 			var insert = connection.prepareStatement(query);
@@ -167,7 +167,7 @@ public class AbastecimentoDAO {
 				+ "FROM abastecimento abs "
 				+ "JOIN impressoras imp ON imp.idimp = abs.idImpressora "
 				+ "JOIN materiasprimas mp ON mp.idmp = abs.idMateriaPrima";
-		System.out.println(query);
+		
 		try (var st = connection.prepareStatement(query)){
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
