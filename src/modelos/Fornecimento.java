@@ -1,28 +1,29 @@
 package modelos;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 public class Fornecimento {
 	private int id, quantidade, idFornecedor, idMateriaPrima;
-	private java.sql.Date dataHoraForn;
+	private java.sql.Date data;
 	private Fornecedor fornecedor = null;
 	private MateriaPrima materiaPrima = null;
 	private Time time;
 	public Fornecimento() {
 
 	}
-	public Fornecimento(int id, int quantidade, java.sql.Date dataHoraForn, int idFornecedor, int idMateriaPrima, Time time) {
+	public Fornecimento(int id, int quantidade, java.sql.Date data, int idFornecedor, int idMateriaPrima, Time time) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.idFornecedor = idFornecedor;
 		this.idMateriaPrima = idMateriaPrima;
-		this.dataHoraForn = dataHoraForn;
+		this.data = data;
 		this.time = time;
 	}
 	
 	public void convertData(java.util.Date data) {
-		dataHoraForn = new java.sql.Date(data.getTime());
+		this.data = new java.sql.Date(data.getTime());
 	}
 	public Time getTime() {
 		return time;
@@ -51,11 +52,11 @@ public class Fornecimento {
 	public void setIdMateriaPrima(int idMateriaPrima) {
 		this.idMateriaPrima = idMateriaPrima;
 	}
-	public java.sql.Date getDataHoraForn() {
-		return dataHoraForn;
+	public java.sql.Date getData() {
+		return data;
 	}
 	public void setDataHoraForn(java.sql.Date dataHoraForn) {
-		this.dataHoraForn = dataHoraForn;
+		this.data = dataHoraForn;
 	}
 	
 	public Fornecedor getFornecedor() {
@@ -72,12 +73,14 @@ public class Fornecimento {
 	}
 	@Override
 	public String toString() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String format = String.format("Fornecimento"
 				+ "\n\tid: %d"
 				+ "\n\tquantidade: %d"
 				+ "\n\tdata: %s,"
 				+ "\n\thora: %s"
-				, id, quantidade, dataHoraForn, time);
+				, id, quantidade, sdf.format(data), time);
 		
 		
 		if( fornecedor != null && materiaPrima != null ) {

@@ -14,7 +14,7 @@ public class Abastecimento {
 	
 	@Override
 	public String toString() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		String format = String.format("Abastecimento:"
 				+ "\n\tidAbastecimento: %d, "

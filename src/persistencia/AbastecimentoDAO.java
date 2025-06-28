@@ -64,7 +64,7 @@ public class AbastecimentoDAO {
 		
 		String query = 
 			"INSERT INTO abastecimento "
-			+ "(idAbastecimento, idMateriaPrima, idImpressora, dataHora, quantidade, hora) VALUES "
+			+ "(idAbastecimento, idMateriaPrima, idImpressora, data, quantidade, hora) VALUES "
 			+ "(?, ?, ?, ?, ?, ?)";
 		
 		String queryUpdate = 
@@ -136,7 +136,7 @@ public class AbastecimentoDAO {
 						rs.getInt("idAbastecimento"), 
 						rs.getInt("idImpressora"), 
 						rs.getInt("idMateriaPrima"), 
-						rs.getDate("dataHora"), 
+						rs.getDate("data"), 
 						rs.getInt("quantidade"),
 						rs.getTime("hora")));
 			}
@@ -160,7 +160,7 @@ public class AbastecimentoDAO {
 		String query = "SELECT "
 				+ "abs.idAbastecimento, "
 				+ "abs.quantidade, "
-				+ "abs.dataHora, "
+				+ "abs.data, "
 				+ "hora, "
 				+ "imp.*, "
 				+ "mp.* "
@@ -191,7 +191,7 @@ public class AbastecimentoDAO {
 	
 	public List<Abastecimento> selectAgregacao() throws SQLException {
 		String query = "SELECT * FROM abastecimento "
-				+ "WHERE dataHora >= ALL(SELECT dataHora FROM abastecimento)"
+				+ "WHERE data >= ALL(SELECT data FROM abastecimento)"
 				+ "ORDER BY hora DESC";
 		
 		try (var ps = connection.prepareStatement(query)) {
@@ -201,12 +201,12 @@ public class AbastecimentoDAO {
 				labs.add(new Abastecimento(
 						rs.getInt("idAbastecimento"), 
 						rs.getInt("idImpressora"), 
-						rs.getInt("idMateriaPrima"), rs.getDate("dataHora"), rs.getInt("quantidade"), rs.getTime("hora")));
+						rs.getInt("idMateriaPrima"), 
+						rs.getDate("data"), 
+						rs.getInt("quantidade"), 
+						rs.getTime("hora")));
 			}
-			
 			return labs;
-			
 		}
 	}
-	
 }

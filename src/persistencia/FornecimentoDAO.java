@@ -33,11 +33,11 @@ public class FornecimentoDAO {
 	public void create(Fornecimento f) throws SQLException {
 		f.setId(createId());
 		PreparedStatement inserir;
-			inserir = con.prepareStatement("INSERT INTO fornecimentos (idFcm, quantidade, dataHora, idForn, " +
+			inserir = con.prepareStatement("INSERT INTO fornecimentos (idFcm, quantidade, data, idForn, " +
 										  "idMp, hora) VALUES (?,?,?,?,?,?)");
 			inserir.setInt(1, f.getId());
 			inserir.setInt(2, f.getQuantidade());
-			inserir.setDate(3, f.getDataHoraForn());
+			inserir.setDate(3, f.getData());
 			inserir.setInt(4, f.getIdFornecedor());
 			inserir.setInt(5, f.getIdMateriaPrima());
 			inserir.setTime(6, f.getTime());
@@ -72,7 +72,7 @@ public class FornecimentoDAO {
 	public List<Fornecimento> selectAllWithMpForn() throws SQLException {
 		List<Fornecimento> fcms = new ArrayList<Fornecimento>();
 		PreparedStatement st;
-			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, dataHora, hora, f.*, mp.* FROM fornecimentos fcm "
+			st = con.prepareStatement("SELECT idFcm, fcm.quantidade, data, hora, f.*, mp.* FROM fornecimentos fcm "
 					+ "JOIN fornecedores f ON fcm.idForn = f.idForn JOIN materiasPrimas mp ON fcm.idMp = mp.idMp");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
