@@ -44,7 +44,6 @@ public class ViewAbastecimento implements View<Abastecimento> {
 			
 			
 			java.sql.Time a = java.sql.Time.valueOf(hora);
-			System.out.println(a);
 			
 			abs.setTime(a);
 			

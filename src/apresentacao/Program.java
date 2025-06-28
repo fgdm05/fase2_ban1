@@ -1,9 +1,11 @@
 package apresentacao;
 
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import exceptions.DeleteException;
 import negocio.Sistema;
 import persistencia.ConnectionFactory;
 
@@ -12,94 +14,176 @@ public class Program {
 	static Scanner sc = new Scanner(System.in);
 	static Sistema sys = null;
 	static Connection con = null;
+	static boolean pausa = true;
+	private static int getEscolha(int l, int r) {
+		int esc = -1000;
+		while(esc < l || esc > r) {
+			esc = sc.nextInt();
+			sc.nextLine();
+		}
+		return esc;
+	}
 	
 	private static void pausaTela() {
 		System.out.println("Aperte enter para continuar... ");
 		sc.nextLine();
 	}
-	private static void delegar(int escolha) throws Exception {
+	private static void delegarFornecedor(int escolha) throws SQLException, DeleteException {
 		switch(escolha) {
-		case 0:
+			case 1:
+				sys.criarFornecedor();
 			break;
-		case 1:
-			sys.criarFornecedor();
+			case 2:
+				sys.verFornecedores();
 			break;
-		case 2:
-			sys.verFornecedores();
+			case 3:
+				sys.deletarFornecedor();
 			break;
-		case 3:
-			sys.deletarFornecedor();
+			case 0:
+				pausa = false;
 			break;
-		case 4:
-			sys.criarMateriaPrima();
+		}
+	}
+	
+	private static void delegarMP(int escolha) throws SQLException, DeleteException {
+		switch(escolha) {
+			case 1:
+				sys.criarMateriaPrima();
 			break;
-		case 5:
-			sys.verMateriasPrimas();
+			case 2:
+				sys.verMateriasPrimas();
 			break;
-		case 6:
-			sys.deletarMateriaPrima();
+			case 3:
+				sys.deletarMateriaPrima();
 			break;
-		case 7:
-			sys.criarImpressora();
+			case 0:
+				pausa = false;
 			break;
-		case 8:
-			sys.verImpressoras();
+		}
+	}	
+	
+
+	private static void delegarIMP(int escolha) throws SQLException, DeleteException {
+		switch(escolha) {
+			case 1:
+				sys.criarImpressora();
 			break;
-		case 9:
-			sys.deletarImpressora();
+			case 2:
+				sys.verImpressoras();
 			break;
-		case 10:
-			sys.criarFornecimento();
+			case 3:
+				sys.deletarImpressora();
 			break;
-		case 11:
-			sys.verFornecimentos();
+			case 0:
+				pausa = false;
 			break;
-		case 12:
-			sys.verFornecimentosComFornEmp();
+		}
+	}	
+	
+
+	private static void delegarFornm(int escolha) throws Exception {
+		switch(escolha) {
+			case 1:
+				sys.criarFornecimento();
 			break;
-		case 13:
-			sys.deletarFornecimento();
+			case 2:
+				sys.verFornecimentos();
 			break;
-		case 14:
-			sys.criarAbastecimento();
+			case 3:
+				sys.deletarFornecimento();
 			break;
-		case 15:
-			sys.verAbastecimentos();
+			case 4:
+				sys.verFornecimentosComFornEmp();
+				break;
+			case 0:
+				pausa = false;
 			break;
-		case 16:
-			sys.deletarAbastecimento();
+		}
+	}	
+	
+
+	private static void delegarABS(int escolha) throws Exception {
+		switch(escolha) {
+			case 1:
+				sys.criarAbastecimento();
 			break;
-		case 17:
-			sys.verAbastecimentosCompleto();
+			case 2:
+				sys.verAbastecimentos();
 			break;
-		case 18:
-			sys.verAbastecimentosAgregacao();
+			case 3:
+				sys.deletarAbastecimento();
 			break;
-		default:
-				throw new RuntimeException("Não existe a opção " + escolha);
+			case 4:
+				sys.verAbastecimentosCompleto();
+			break;
+			case 5:
+				sys.verAbastecimentosAgregacao();
+			break;
+			case 0:
+				pausa = false;
+			break;
+		}
+	}	
+	
+	private static void delegarGeral(int escolha) throws Exception {
+		switch(escolha) {
+			case 1:
+				menuCRUD();
+				delegarFornecedor(getEscolha(0, 3));
+				
+			break;
+			case 2:
+				menuCRUD();
+				delegarMP(getEscolha(0, 3));
+			break;
+			case 3:
+				menuCRUD();	
+				delegarIMP(getEscolha(0, 3));
+			break;
+			case 4:
+				menuCRUD();
+				menuAbs();
+				delegarABS(getEscolha(0,5));
+			break;
+			case 5:
+				menuCRUD();
+				menuForn();
+				delegarFornm(getEscolha(0, 4));
+			break;
+			case 0:
+				System.out.println("Terminando programa...");
+				System.exit(0);
+			break;
+			default:
+				throw new UnsupportedOperationException("Não existe a opção " + escolha);
 		}
 		
 	}
-	private static void menu() {
-		System.out.println("1 - Criar um fornecedor");
-		System.out.println("2 - Visualizar todos os fornecedores");
-		System.out.println("3 - Deletar fornecedor");
-		System.out.println("4 - Criar uma materia prima");
-		System.out.println("5 - Visualizar materias primas");
-		System.out.println("6 - Excluir materia prima");
-		System.out.println("7 - Criar uma impressora");
-		System.out.println("8 - Visualizar todas as impressoras");
-		System.out.println("9 - Excluir uma impressora");
-		System.out.println("10 - Criar fornecimento");
-		System.out.println("11 - Visualizar historico de fornecimento");
-		System.out.println("12 - Visualizar historico de fornecimento com fornecedores e materias primas");
-		System.out.println("13 - Excluir fornecimento");
-		System.out.println("14 - Criar abastecimento");
-		System.out.println("15 - Visualizar todos os abastecimentos");
-		System.out.println("16 - Deletar abastecimento");
-		System.out.println("17 - Visualizar todos os abastecimentos com impressoras e materias primas");
-		System.out.println("18 - Visualizar a maior quantidade abastecida na data mais recente");
+
+	private static void menuGeral() {
+		System.out.println("Menu geral, selecione o que quer alterar!!!");
+		System.out.println("1 - Fornecedores");
+		System.out.println("2 - Matérias primas");
+		System.out.println("3 - Impressoras");
+		System.out.println("4 - Abastecimento das impressoras");
+		System.out.println("5 - Fornecimento das matérias primas");
 		System.out.println("0 - Sair");
+	}
+	
+	private static void menuCRUD() {
+		System.out.println("Menu de alterações");
+		System.out.println("0 - Voltar");
+		System.out.println("1 - Criar");
+		System.out.println("2 - Visualizar");
+		System.out.println("3 - Excluir");
+	}
+	
+	private static void menuForn() {
+		System.out.println("4 - Visualizar fornecimento junto com fornecedor e materia prima");
+	}
+	private static void menuAbs() {
+		System.out.println("4 - Visualizar abastecimentos junto com a impressora e a materia prima");
+		System.out.println("5 - Visualizar a maior quantidade abastecida na data mais recente");
 	}
 	
 	
@@ -113,11 +197,12 @@ public class Program {
 			int escolha = -1000;
 			while(escolha != 0) {
 				try {
-					menu();
+					menuGeral();
 					do {escolha = sc.nextInt(); } while(escolha < 0);
 					sc.nextLine();
-					delegar(escolha);
-					pausaTela();
+					delegarGeral(escolha);
+					if(pausa) {pausaTela();}
+					pausa = true;
 				} catch(Exception e) {
 					System.err.println(e.getMessage());
 				}
@@ -128,7 +213,7 @@ public class Program {
 			t.printStackTrace();
 		}
 		
-		System.out.println("Terminando programa...");
+
 	}
 
 }
