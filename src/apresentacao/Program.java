@@ -117,7 +117,10 @@ public class Program {
 				sys.verAbastecimentosCompleto();
 			break;
 			case 5:
-				sys.verAbastecimentosAgregacao();
+				sys.verAbastecimentosAgregacao2();
+			break;
+			case 6:
+				sys.verAbastecimentosExtra();
 			break;
 			case 0:
 				pausa = false;
@@ -143,7 +146,7 @@ public class Program {
 			case 4:
 				menuCRUD();
 				menuAbs();
-				delegarABS(getEscolha(0,5));
+				delegarABS(getEscolha(0,6));
 			break;
 			case 5:
 				menuCRUD();
@@ -183,7 +186,8 @@ public class Program {
 	}
 	private static void menuAbs() {
 		System.out.println("4 - Visualizar abastecimentos junto com a impressora e a materia prima");
-		System.out.println("5 - Visualizar abastecimentos do dia mais recente, ordenados pelo horário de abastecimento");
+		System.out.println("5 - Visualizar a maior quantidade abastecida da data mais recente");
+		System.out.println("6 - Visualizar abastecimentos do dia mais recente, ordenados pelo horário de abastecimento");
 	}
 	
 	

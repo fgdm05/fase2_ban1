@@ -233,9 +233,16 @@ public class Sistema {
 	}
 
 
-	public List<Abastecimento> verAbastecimentosAgregacao() throws SQLException {
-		var valor = abastecimentoDAO.selectAgregacao();
+	public List<Abastecimento> verAbastecimentosExtra() throws SQLException {
+		var valor = abastecimentoDAO.selectExtra();
 		valor.forEach(System.out::println);
 		return valor;
+	}
+
+
+	public int verAbastecimentosAgregacao2() throws SQLException {
+		int selectAgregacaoCerta = abastecimentoDAO.selectAgregacaoCerta();
+		System.out.println("A maior quantidade abastecida da data mais recente é " + selectAgregacaoCerta);
+		return selectAgregacaoCerta;
 	}
 }

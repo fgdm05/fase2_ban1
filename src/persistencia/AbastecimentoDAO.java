@@ -189,7 +189,19 @@ public class AbastecimentoDAO {
 		}
 	}
 	
-	public List<Abastecimento> selectAgregacao() throws SQLException {
+	public int selectAgregacaoCerta() throws SQLException {
+		String query = "SELECT max(quantidade) FROM abastecimento "
+				+ "WHERE data >= ALL(SELECT data FROM abastecimento)";
+		
+		try (var ps = connection.prepareStatement(query)) {
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+			
+		}
+	}
+	
+	public List<Abastecimento> selectExtra() throws SQLException {
 		String query = "SELECT * FROM abastecimento "
 				+ "WHERE data >= ALL(SELECT data FROM abastecimento)"
 				+ "ORDER BY hora DESC";
